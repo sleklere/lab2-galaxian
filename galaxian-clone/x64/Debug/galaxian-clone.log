@@ -1,4 +1,9 @@
-﻿  Player.cpp
+﻿  Enemy.cpp
+  Galaxian.cpp
+  GalaxianCommander.cpp
+  GameObject.cpp
+  Player.cpp
+  Projectile.cpp
   main.cpp
   Generating Code...
   galaxian-clone.vcxproj -> C:\Users\slekl\Desktop\repos\lab2-galaxian\galaxian-clone\x64\Debug\galaxian-clone.exe

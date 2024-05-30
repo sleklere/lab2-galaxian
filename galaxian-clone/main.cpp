@@ -10,6 +10,7 @@ int main()
     Player spaceship;
     Projectile projectile;
     std::vector<Projectile> projectiles;
+    sf::Clock clock;
 
     while (window.isOpen())
     {
@@ -24,13 +25,13 @@ int main()
 
         //CMD
 
+        float deltaTime = clock.restart().asSeconds();
+
         //UPDATE
-        spaceship.update(projectiles);
+        spaceship.update(deltaTime, projectiles);
 
         //DRAW
-        //window.draw(spaceship);
         spaceship.draw(window, sf::RenderStates::Default);
-        //window.draw(projectile);
         for (auto& projectile : projectiles) {
             projectile.update();
             window.draw(projectile, sf::RenderStates::Default);

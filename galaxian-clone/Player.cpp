@@ -11,9 +11,11 @@ Player::Player()
     _sprite.setOrigin(_sprite.getGlobalBounds().width / 2, _sprite.getGlobalBounds().height);
     _sprite.setPosition(W_WIDTH / 2, W_HEIGHT);
     _speed = { MOVEMENT_SPEED, MOVEMENT_SPEED };
+    _timeSinceLastShot = 0.f;
+    _shootCoolDown = SHOOT_COOLDOWN;
 }
 
-void Player::update(std::vector<Projectile>& projectiles)
+void Player::update(float deltaTime, std::vector<Projectile>& projectiles)
 {   
     _speed = { 0, 0 };
 
@@ -30,13 +32,12 @@ void Player::update(std::vector<Projectile>& projectiles)
         _speed.x = MOVEMENT_SPEED;
     }
 
-    // Disparar
-  /*  if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
-        shoot();
-    }*/
-    //projectile.update();
+    if (_timeSinceLastShot < _shootCoolDown) {
+        _timeSinceLastShot += deltaTime;
+    }
 
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)
+        && _timeSinceLastShot >= _shootCoolDown) {
         shoot(projectiles);
     }
 
@@ -66,18 +67,13 @@ void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const
 
 void Player::shoot(std::vector<Projectile>& projectiles)
 {
-    // Create a new projectile and add it to the list
-    //Projectile newProjectile(_sprite.getPosition().x + _sprite.getGlobalBounds().width / 2,
-    //    _sprite.getPosition().y,
-    //    PROJECTILE_SPEED, 0.0f, -1.0f);
-    //_projectiles.push_back(newProjectil);
     Projectile projectile;
 
     projectile.fire(_sprite.getPosition());
 
-    //projectile.update();
-
     projectiles.push_back(projectile);
+
+    _timeSinceLastShot = 0.f;
 }
 
 sf::Vector2f Player::getCoordinates()
