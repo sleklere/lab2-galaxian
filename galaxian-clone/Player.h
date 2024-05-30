@@ -8,10 +8,11 @@ private:
 	sf::Sprite _sprite;
 	sf::Texture _texture;
 	sf::Vector2f _speed;
-	std::vector<Projectile> _projectiles; // Container for projectiles
+	//std::vector<Projectile> _projectiles; // Container for projectiles
 public:
 	Player();
 	void update();
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
-	void shoot();
+	//void shoot();
+	sf::Vector2f getCoordinates();
 };

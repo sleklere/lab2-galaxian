@@ -1,6 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include "Globals.h"
 #include "Player.h"
+#include "Projectile.h"
 
 int main()
 {
@@ -9,10 +10,13 @@ int main()
     /*sf::CircleShape shape(100.f);
     shape.setFillColor(sf::Color::Green);*/
     Player spaceship;
-     
+    Projectile projectile;
+
 
     while (window.isOpen())
     {
+        window.clear();
+
         sf::Event event;
         while (window.pollEvent(event))
         {
@@ -20,12 +24,22 @@ int main()
                 window.close();
         }
 
+        //CMD
+
+        //UPDATE
         spaceship.update();
+        projectile.update();
 
-        window.clear();
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
+            projectile.fire(spaceship.getCoordinates());
+        }
 
+
+        //DRAW
         window.draw(spaceship);
+        window.draw(projectile);
 
+        //DISPLAY
         window.display();
     }
 

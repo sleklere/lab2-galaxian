@@ -28,9 +28,9 @@ void Player::update()
     }
 
     // Disparar
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
+  /*  if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
         shoot();
-    }
+    }*/
 
     _sprite.move(_speed);
     /*float angle = std::atan2(_speed.y, _speed.x) * 180 / 3.14159265;
@@ -64,11 +64,16 @@ void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const
     target.draw(_sprite, states);
 }
 
-void Player::shoot()
+//void Player::shoot()
+//{
+//    // Create a new projectile and add it to the list
+//    Projectile newProjectile(_sprite.getPosition().x + _sprite.getGlobalBounds().width / 2,
+//        _sprite.getPosition().y,
+//        PROJECTILE_SPEED, 0.0f, -1.0f);
+//    _projectiles.push_back(newProjectile);
+//}
+
+sf::Vector2f Player::getCoordinates()
 {
-    // Create a new projectile and add it to the list
-    Projectile newProjectile(_sprite.getPosition().x + _sprite.getGlobalBounds().width / 2,
-        _sprite.getPosition().y,
-        PROJECTILE_SPEED, 0.0f, -1.0f);
-    _projectiles.push_back(newProjectile);
+    return _sprite.getPosition();
 }
