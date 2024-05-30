@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML\Graphics.hpp>
 #include "Globals.h"
+#include "Projectile.h"
 
 class Player : public sf::Drawable
 {
@@ -11,8 +12,8 @@ private:
 	//std::vector<Projectile> _projectiles; // Container for projectiles
 public:
 	Player();
-	void update();
+	void update(std::vector<Projectile>& projectiles);
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
-	//void shoot();
+	void shoot(std::vector<Projectile>& projectiles);
 	sf::Vector2f getCoordinates();
 };

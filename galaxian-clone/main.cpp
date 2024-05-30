@@ -7,11 +7,9 @@ int main()
 {
     sf::RenderWindow window(sf::VideoMode(W_WIDTH, W_HEIGHT), "Galaxian");
     window.setFramerateLimit(MAX_FPS);
-    /*sf::CircleShape shape(100.f);
-    shape.setFillColor(sf::Color::Green);*/
     Player spaceship;
     Projectile projectile;
-
+    std::vector<Projectile> projectiles;
 
     while (window.isOpen())
     {
@@ -27,17 +25,16 @@ int main()
         //CMD
 
         //UPDATE
-        spaceship.update();
-        projectile.update();
-
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
-            projectile.fire(spaceship.getCoordinates());
-        }
-
+        spaceship.update(projectiles);
 
         //DRAW
-        window.draw(spaceship);
-        window.draw(projectile);
+        //window.draw(spaceship);
+        spaceship.draw(window, sf::RenderStates::Default);
+        //window.draw(projectile);
+        for (auto& projectile : projectiles) {
+            projectile.update();
+            window.draw(projectile, sf::RenderStates::Default);
+        }
 
         //DISPLAY
         window.display();

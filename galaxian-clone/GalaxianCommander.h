@@ -2,7 +2,9 @@
 #include "Galaxian.h"
 #include "Enemy.h"
 
-class GalaxianCommander : Enemy
+class GalaxianCommander : public Enemy
 {
+public:
+	void update() const override;
 };
 
