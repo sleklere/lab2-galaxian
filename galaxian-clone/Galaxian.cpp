@@ -1,6 +1,6 @@
 #include "Galaxian.h"
 
-void Galaxian::update() const
+void Galaxian::update()
 {
 	
 }

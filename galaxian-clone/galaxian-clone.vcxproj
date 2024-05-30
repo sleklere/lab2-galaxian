@@ -136,6 +136,9 @@
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Galaxian.cpp" />
     <ClCompile Include="GalaxianCommander.cpp" />
+    <ClCompile Include="GalaxianCyan.cpp" />
+    <ClCompile Include="GalaxianPink.cpp" />
+    <ClCompile Include="GalaxianRed.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -146,6 +149,9 @@
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Galaxian.h" />
     <ClInclude Include="GalaxianCommander.h" />
+    <ClInclude Include="GalaxianCyan.h" />
+    <ClInclude Include="GalaxianPink.h" />
+    <ClInclude Include="GalaxianRed.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Globals.h" />
     <ClInclude Include="Player.h" />

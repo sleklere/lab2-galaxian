@@ -3,9 +3,10 @@
 
 class Enemy : public GameObject
 {
-private:
+protected:
 	sf::Vector2f _speed;
+	float _frame;
 public:
-	virtual void update() const = 0;
+	virtual void update() = 0;
 };
 

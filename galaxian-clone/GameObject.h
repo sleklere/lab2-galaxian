@@ -5,11 +5,11 @@
 
 class GameObject : public Collisionable, public sf::Drawable
 {
-private:
+protected:
 	sf::Sprite _sprite;
 	sf::Texture _texture;
 public:
-	virtual void update() const = 0;
+	virtual void update() = 0;
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 };
 

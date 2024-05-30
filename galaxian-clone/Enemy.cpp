@@ -1,5 +1,5 @@
 #include "Enemy.h"
 
-void Enemy::update() const {
+void Enemy::update() {
 	// 
 }

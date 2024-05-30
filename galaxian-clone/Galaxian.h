@@ -4,7 +4,7 @@
 class Galaxian : public Enemy
 {
 public:
-	void update() const override;
+	void update() override = 0;
 	// destructor para "matar" al enemigo
 };
 

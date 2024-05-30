@@ -1,2 +1,3 @@
-﻿  main.cpp
+﻿  GalaxianCyan.cpp
+C:\Users\Usuario\Desktop\galaxian\galaxian-clone\GalaxianCyan.cpp(24,16): warning C4305: '+=': truncation from 'double' to 'float'
   galaxian-clone.vcxproj -> C:\Users\Usuario\Desktop\galaxian\galaxian-clone\x64\Debug\galaxian-clone.exe

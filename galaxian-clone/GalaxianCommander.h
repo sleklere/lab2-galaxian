@@ -5,6 +5,7 @@
 class GalaxianCommander : public Enemy
 {
 public:
-	void update() const override;
+	GalaxianCommander();
+	void update() override;
 };
 

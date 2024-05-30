@@ -2,6 +2,10 @@
 #include "Globals.h"
 #include "Player.h"
 #include "Projectile.h"
+#include "GalaxianRed.h"
+#include "GalaxianCyan.h"
+#include "GalaxianPink.h"
+#include "GalaxianCommander.h"
 
 int main()
 {
@@ -9,6 +13,10 @@ int main()
     window.setFramerateLimit(MAX_FPS);
     Player spaceship;
     Projectile projectile;
+    GalaxianRed galaxianRed;
+    GalaxianCyan galaxianCyan;
+    GalaxianPink galaxianPink;
+    GalaxianCommander galaxianCommander;
     std::vector<Projectile> projectiles;
     sf::Clock clock;
 
@@ -29,6 +37,9 @@ int main()
 
         //UPDATE
         spaceship.update(deltaTime, projectiles);
+        galaxianRed.update();
+        galaxianCyan.update();
+        galaxianPink.update();
 
         //DRAW
         spaceship.draw(window, sf::RenderStates::Default);
@@ -36,6 +47,10 @@ int main()
             projectile.update();
             window.draw(projectile, sf::RenderStates::Default);
         }
+        galaxianRed.draw(window, sf::RenderStates::Default);
+        galaxianCyan.draw(window, sf::RenderStates::Default);
+        galaxianPink.draw(window, sf::RenderStates::Default);
+        galaxianCommander.draw(window, sf::RenderStates::Default);
 
         //DISPLAY
         window.display();
