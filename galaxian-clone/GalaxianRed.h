@@ -1,10 +1,10 @@
 #pragma once
-#include "Galaxian.h"
+#include "Enemy.h"
 
-class GalaxianRed: public Galaxian
+class GalaxianRed: public Enemy
 {
 public:
 	GalaxianRed();
-	void update() override;
+	void updateDrawing();
 };
 

@@ -134,7 +134,6 @@
   <ItemGroup>
     <ClCompile Include="Collisionable.cpp" />
     <ClCompile Include="Enemy.cpp" />
-    <ClCompile Include="Galaxian.cpp" />
     <ClCompile Include="GalaxianCommander.cpp" />
     <ClCompile Include="GalaxianCyan.cpp" />
     <ClCompile Include="GalaxianPink.cpp" />
@@ -147,7 +146,6 @@
   <ItemGroup>
     <ClInclude Include="Collisionable.h" />
     <ClInclude Include="Enemy.h" />
-    <ClInclude Include="Galaxian.h" />
     <ClInclude Include="GalaxianCommander.h" />
     <ClInclude Include="GalaxianCyan.h" />
     <ClInclude Include="GalaxianPink.h" />

@@ -10,9 +10,10 @@ private:
 	sf::Sprite _sprite;
 	sf::Vector2f _speed;
 	bool _isFire;
-	//sf::Vector2f _direction;
+	int _direction;
 public:
-	Projectile();
+	bool remove;
+	Projectile(int direction);
 	void update();
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 	sf::FloatRect getBounds() const override;

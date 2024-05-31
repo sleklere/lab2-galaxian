@@ -18,9 +18,10 @@ GalaxianCyan::GalaxianCyan() {
 	_frame = 0;
 
 	_sprite.setPosition(200, 100);
+	pointsValue = 30;
 }
 
-void GalaxianCyan::update() {
+void GalaxianCyan::updateDrawing() {
 	_frame += 0.02;
 
 	if (_frame >= 3) { //3 porq son 3 frames de mi imagen

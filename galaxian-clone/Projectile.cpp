@@ -18,12 +18,15 @@
 //{
 //    target.draw(_sprite, states);
 //}
-Projectile::Projectile()
+Projectile::Projectile(const int direction)
 {
 	_texture.loadFromFile("sprites-sheet.png");
 	_sprite.setTexture(_texture);
     sf::IntRect textureRect(65, 39, 1, 4); // white projectile
     _sprite.setTextureRect(textureRect);
+	_direction = direction;
+	_isFire = false;
+	remove = false;
 	//_speed = { 0,0 };
 
 
@@ -35,7 +38,7 @@ Projectile::Projectile()
 void Projectile::update()
 {
 	if (_isFire) {
-		_sprite.move(0, -5);
+		_sprite.move(0, 5 * _direction);
 	}
 }
 

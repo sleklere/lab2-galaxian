@@ -18,9 +18,10 @@ GalaxianRed::GalaxianRed() {
 	_frame = 0;
 	
 	_sprite.setPosition(100, 100);
+	pointsValue = 50;
 }
 
-void GalaxianRed::update() {
+void GalaxianRed::updateDrawing() {
 	_frame += 0.02;
 
 	if (_frame >= 3) { //3 porq son 3 frames de mi imagen

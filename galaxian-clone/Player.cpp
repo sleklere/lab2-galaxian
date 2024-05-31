@@ -45,6 +45,8 @@ void Player::update(float deltaTime, std::vector<Projectile>& projectiles)
     /*float angle = std::atan2(_speed.y, _speed.x) * 180 / 3.14159265;
     _sprite.setRotation(angle + 90);*/
 
+
+    // dont allow player to go out of the screen
     if (_sprite.getGlobalBounds().left < 0) {
         _sprite.setPosition(_sprite.getOrigin().x, _sprite.getPosition().y);
     }
@@ -67,7 +69,7 @@ void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const
 
 void Player::shoot(std::vector<Projectile>& projectiles)
 {
-    Projectile projectile;
+    Projectile projectile(_facingDirection);
 
     projectile.fire(_sprite.getPosition());
 
@@ -76,7 +78,25 @@ void Player::shoot(std::vector<Projectile>& projectiles)
     _timeSinceLastShot = 0.f;
 }
 
-sf::Vector2f Player::getCoordinates()
+sf::FloatRect Player::getBounds() const
 {
-    return _sprite.getPosition();
+    return _sprite.getGlobalBounds();
 }
+
+void Player::setLives(int numLives)
+{
+    if (numLives >= 0)
+    {
+        _lives = numLives;
+    }
+}
+
+int Player::getLives()
+{
+    return _lives;
+}
+
+//sf::Vector2f Player::getCoordinates()
+//{
+//    return _sprite.getPosition();
+//}

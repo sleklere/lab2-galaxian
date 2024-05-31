@@ -11,8 +11,5 @@ GalaxianCommander::GalaxianCommander() {
 	_sprite.setScale(3, 3);
 
 	_sprite.setPosition(400, 100);
-}
-
-void GalaxianCommander::update() {
-
+	pointsValue = 60;
 }

@@ -11,14 +11,28 @@ int main()
 {
     sf::RenderWindow window(sf::VideoMode(W_WIDTH, W_HEIGHT), "Galaxian");
     window.setFramerateLimit(MAX_FPS);
-    Player spaceship;
-    Projectile projectile;
+    Player player;
     GalaxianRed galaxianRed;
     GalaxianCyan galaxianCyan;
     GalaxianPink galaxianPink;
     GalaxianCommander galaxianCommander;
-    std::vector<Projectile> projectiles;
+    std::vector<Enemy> enemies;
+    std::vector<Projectile> playerProjectiles;
     sf::Clock clock;
+    sf::Font font;
+    sf::Text livesText;
+    sf::Text pointsText;
+    font.loadFromFile("ARCADE_I.ttf");
+    livesText.setFont(font);
+    livesText.setPosition(0, 30);
+    pointsText.setFont(font);
+    int points = 0;
+
+    // JUST FOR TESTING
+    enemies.push_back(galaxianRed);
+    enemies.push_back(galaxianCyan);
+    enemies.push_back(galaxianPink);
+    enemies.push_back(galaxianCommander);
 
     while (window.isOpen())
     {
@@ -31,26 +45,41 @@ int main()
                 window.close();
         }
 
-        //CMD
-
         float deltaTime = clock.restart().asSeconds();
 
-        //UPDATE
-        spaceship.update(deltaTime, projectiles);
-        galaxianRed.update();
-        galaxianCyan.update();
-        galaxianPink.update();
+        // UPDATE
+        player.update(deltaTime, playerProjectiles);
 
-        //DRAW
-        spaceship.draw(window, sf::RenderStates::Default);
-        for (auto& projectile : projectiles) {
+        for (auto& projectile : playerProjectiles) {  
             projectile.update();
+            for (auto& enemy : enemies) {
+                if (projectile.isCollision(enemy)) {
+                    points += enemy.pointsValue;
+                    projectile.remove = true;
+                    enemy.remove = true;
+                }
+            }
             window.draw(projectile, sf::RenderStates::Default);
         }
-        galaxianRed.draw(window, sf::RenderStates::Default);
-        galaxianCyan.draw(window, sf::RenderStates::Default);
-        galaxianPink.draw(window, sf::RenderStates::Default);
-        galaxianCommander.draw(window, sf::RenderStates::Default);
+        pointsText.setString(std::to_string(points));
+
+        playerProjectiles.erase(
+            std::remove_if(playerProjectiles.begin(), playerProjectiles.end(),
+                [](const Projectile& p) { return p.remove; }),
+            playerProjectiles.end());
+
+        enemies.erase(
+            std::remove_if(enemies.begin(), enemies.end(),
+                [](const Enemy& e) { return e.remove; }),
+            enemies.end());
+
+        // DRAW
+        for (auto& enemy : enemies) {
+            enemy.draw(window, sf::RenderStates::Default);
+        }
+        player.draw(window, sf::RenderStates::Default);
+        window.draw(livesText);
+        window.draw(pointsText);
 
         //DISPLAY
         window.display();

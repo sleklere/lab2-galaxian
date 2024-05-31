@@ -1,9 +1,11 @@
 ﻿  Enemy.cpp
-  Galaxian.cpp
   GalaxianCommander.cpp
-  GameObject.cpp
-  Player.cpp
-  Projectile.cpp
+  GalaxianCyan.cpp
+C:\Users\slekl\Desktop\repos\lab2-galaxian\galaxian-clone\GalaxianCyan.cpp(25,16): warning C4305: '+=': truncation from 'double' to 'float'
+  GalaxianPink.cpp
+C:\Users\slekl\Desktop\repos\lab2-galaxian\galaxian-clone\GalaxianPink.cpp(25,16): warning C4305: '+=': truncation from 'double' to 'float'
+  GalaxianRed.cpp
+C:\Users\slekl\Desktop\repos\lab2-galaxian\galaxian-clone\GalaxianRed.cpp(25,16): warning C4305: '+=': truncation from 'double' to 'float'
   main.cpp
   Generating Code...
   galaxian-clone.vcxproj -> C:\Users\slekl\Desktop\repos\lab2-galaxian\galaxian-clone\x64\Debug\galaxian-clone.exe
