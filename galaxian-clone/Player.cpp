@@ -13,6 +13,8 @@ Player::Player()
     _speed = { MOVEMENT_SPEED, MOVEMENT_SPEED };
     _timeSinceLastShot = 0.f;
     _shootCoolDown = SHOOT_COOLDOWN;
+    _frame = 0;
+    _isHitted = false;
 }
 
 void Player::update(float deltaTime, std::vector<Projectile>& projectiles)
@@ -59,6 +61,25 @@ void Player::update(float deltaTime, std::vector<Projectile>& projectiles)
     }
     if (_sprite.getGlobalBounds().top + _sprite.getGlobalBounds().height > W_HEIGHT) {
         _sprite.setPosition(_sprite.getPosition().x, W_HEIGHT - (_sprite.getGlobalBounds().height - _sprite.getOrigin().y));
+    }
+
+    if (_frame == 0) {
+        _sprite.setTextureRect({ 3, 35, 12, 15 });
+    }
+
+    //animacion si es golpeado por enemigo
+    if (_isHitted) {
+        _frame += 0.02;
+
+        if (_frame >= 3) {
+            _frame = 0;
+            _isHitted = false;
+            _sprite.setPosition(W_WIDTH / 2, W_HEIGHT);
+        }
+
+        if (_frame < 1) _sprite.setTextureRect({ 3, 79, 19, 16 });
+        if (_frame >= 1 && _frame <= 2) _sprite.setTextureRect({ 29, 79, 19, 16 });
+        if (_frame >= 2 && _frame <= 3) _sprite.setTextureRect({ 51, 79, 24, 16 });
     }
 }
 

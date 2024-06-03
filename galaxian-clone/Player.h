@@ -14,6 +14,7 @@ private:
 	float _timeSinceLastShot;
 	int _facingDirection = -1;
 	int _lives = 3;
+	float _frame;
 
 public:
 	Player();
@@ -23,5 +24,6 @@ public:
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 	void shoot(std::vector<Projectile>& projectiles);
 	sf::FloatRect getBounds() const override;
+	bool _isHitted;
 	//sf::Vector2f getCoordinates();
 };

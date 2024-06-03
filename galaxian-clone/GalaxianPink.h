@@ -5,6 +5,7 @@ class GalaxianPink : public Enemy
 {
 public:
 	GalaxianPink();
-	void updateDrawing();
+	//void updateDrawing();
+	void updateDrawing() override;
 };
 
