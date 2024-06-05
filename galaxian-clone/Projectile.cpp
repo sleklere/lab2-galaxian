@@ -20,7 +20,11 @@ Projectile::Projectile(const int direction)
 void Projectile::update()
 {
 	if (_isFire) {
-		_sprite.move(0, 5 * _direction);
+		_sprite.move(0, _speed * _direction);
+	}
+
+	if (_sprite.getPosition().y < 0 || _sprite.getPosition().y > W_HEIGHT) {
+		remove = true;
 	}
 }
 
@@ -34,10 +38,10 @@ sf::FloatRect Projectile::getBounds() const
 	return _sprite.getGlobalBounds();
 }
 
-void Projectile::fire(sf::Vector2f coords)
+void Projectile::fire(sf::Vector2f coords, float speed)
 {
 	_sprite.setPosition(coords);
-	_speed = { 0, 5 };
+	_speed = speed;
 	_isFire = true;
 }
 

@@ -4,7 +4,7 @@
 Enemy::Enemy() {
 	_timeSinceLastShot = 0.f;
 	_shootCoolDown = 2.0f;
-}
+}		
 
 void Enemy::update(float deltaTime, std::vector<Projectile>& projectiles) {
 	if (_timeSinceLastShot < _shootCoolDown) {
@@ -30,7 +30,7 @@ void Enemy::shoot(std::vector<Projectile>& projectiles)
 {
 	Projectile projectile(_facingDirection);
 
-	projectile.fire(_sprite.getPosition());
+	projectile.fire(_sprite.getPosition(), PROJECTILE_SPEED_ENEMY);
 
 	projectiles.push_back(projectile);
 

@@ -17,7 +17,7 @@ GalaxianRed::GalaxianRed() {
 	//frame
 	_frame = 0;
 	
-	_sprite.setPosition(100, 100);
+	_sprite.setPosition(200, 388);
 	pointsValue = 50;
 }
 

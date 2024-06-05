@@ -24,9 +24,6 @@
     <ClCompile Include="Collisionable.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Galaxian.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="GalaxianCommander.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -48,6 +45,9 @@
     <ClCompile Include="GalaxianPink.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Grid.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Player.h">
@@ -57,9 +57,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Collisionable.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Galaxian.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GalaxianCommander.h">
@@ -81,6 +78,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GalaxianPink.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Grid.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,3 +1,2 @@
-﻿  Player.cpp
-C:\Users\Usuario\Desktop\galaxian\galaxian-clone\Player.cpp(72,23): warning C4305: '+=': truncation from 'double' to 'float'
-  galaxian-clone.vcxproj -> C:\Users\Usuario\Desktop\galaxian\galaxian-clone\x64\Debug\galaxian-clone.exe
+﻿  main.cpp
+  galaxian-clone.vcxproj -> C:\Users\slekl\OneDrive\Escritorio\repos\lab2-galaxian\galaxian-clone\x64\Debug\galaxian-clone.exe

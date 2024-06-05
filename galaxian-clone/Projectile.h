@@ -8,7 +8,7 @@ class Projectile : public sf::Drawable, public Collisionable
 private:
 	sf::Texture _texture;
 	sf::Sprite _sprite;
-	sf::Vector2f _speed;
+	float _speed;
 	bool _isFire;
 	int _direction;
 public:
@@ -17,7 +17,7 @@ public:
 	void update();
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 	sf::FloatRect getBounds() const override;
-	void fire(sf::Vector2f coords);
+	void fire(sf::Vector2f coords, float speed);
 	void impact();
 };
 

@@ -1,5 +1,5 @@
 #pragma once
-#include <SFML\Graphics.hpp>
+#include <SFML/Graphics.hpp>
 #include "Globals.h"
 #include "Collisionable.h"
 #include "Projectile.h"

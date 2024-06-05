@@ -17,7 +17,7 @@ GalaxianPink::GalaxianPink() {
 	//frame
 	_frame = 0;
 	
-	_sprite.setPosition(300, 100);
+	_sprite.setPosition(200, 420);
 	pointsValue = 40;
 }
 

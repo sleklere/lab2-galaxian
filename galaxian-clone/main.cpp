@@ -6,6 +6,8 @@
 #include "GalaxianCyan.h"
 #include "GalaxianPink.h"
 #include "GalaxianCommander.h"
+#include "Grid.h"
+#include <iostream>
 
 int main()
 {
@@ -16,11 +18,7 @@ int main()
     GalaxianRed galaxianRed;
     GalaxianPink galaxianPink;
     GalaxianCommander galaxianCommander;
-    //std::vector<Enemy> enemies;
-    std::vector<GalaxianCyan> galaxianCyanEnemies;
-    std::vector<GalaxianRed> galaxianRedEnemies;
-    std::vector<GalaxianPink> galaxianPinkEnemies;
-    std::vector<GalaxianCommander> galaxianCommanderEnemies;
+    Grid enemiesGrid(2, 2);
     std::vector<Projectile> playerProjectiles;
     std::vector<Projectile> enemyProjectiles;
     sf::Clock clock;
@@ -32,12 +30,6 @@ int main()
     livesText.setPosition(0, 30);
     pointsText.setFont(font);
     int points = 0;
-
-    // JUST FOR TESTING
-    galaxianCyanEnemies.push_back(galaxianCyan);
-    galaxianRedEnemies.push_back(galaxianRed);
-    galaxianPinkEnemies.push_back(galaxianPink);
-    galaxianCommanderEnemies.push_back(galaxianCommander);
 
     while (window.isOpen())
     {
@@ -55,100 +47,45 @@ int main()
         // UPDATE
         player.update(deltaTime, playerProjectiles);
 
-        for (auto& enemy : galaxianCyanEnemies) {
-            enemy.update(deltaTime, enemyProjectiles);
-            enemy.updateDrawing();
+        for (auto& projectile : enemyProjectiles) {
+            projectile.update();
 
-            for (auto& projectile : enemyProjectiles) {
-               projectile.update();
-               if (projectile.isCollision(player)) {
-                   player.setLives(player.getLives() - 1);
-                   player._isHitted = true;
-                   projectile.remove = true;
-               }
-               window.draw(projectile, sf::RenderStates::Default);
+            if (projectile.remove) {
+                continue;
             }
-        }
-
-        for (auto& enemy : galaxianRedEnemies) {
-            enemy.update(deltaTime, enemyProjectiles);
-            enemy.updateDrawing();
-
-            for (auto& projectile : enemyProjectiles) {
-                projectile.update();
-                if (projectile.isCollision(player)) {
-                    player.setLives(player.getLives() - 1);
-                    player._isHitted = true;
-                    projectile.remove = true;
+            
+            for (auto& row : enemiesGrid.getCells()) {
+                for (auto& enemy : row) {
+                    enemy.update(deltaTime, enemyProjectiles);
+                    if (projectile.isCollision(player)) {
+                        player.setLives(player.getLives() - 1);
+                        player._isHitted = true;
+                        projectile.remove = true;
+                    }
                 }
-                window.draw(projectile, sf::RenderStates::Default);
-            }
-        }
-
-        for (auto& enemy : galaxianPinkEnemies) {
-            enemy.update(deltaTime, enemyProjectiles);
-            enemy.updateDrawing();
-
-            for (auto& projectile : enemyProjectiles) {
-                projectile.update();
-                if (projectile.isCollision(player)) {
-                    player.setLives(player.getLives() - 1);
-                    player._isHitted = true;
-                    projectile.remove = true;
-                }
-                window.draw(projectile, sf::RenderStates::Default);
-            }
-        }
-
-        for (auto& enemy : galaxianCommanderEnemies) {
-            enemy.update(deltaTime, enemyProjectiles);
-            enemy.updateDrawing();
-
-            for (auto& projectile : enemyProjectiles) {
-                projectile.update();
-                if (projectile.isCollision(player)) {
-                    player.setLives(player.getLives() - 1);
-                    player._isHitted = true;
-                    projectile.remove = true;
-                }
-                window.draw(projectile, sf::RenderStates::Default);
             }
         }
 
         for (auto& projectile : playerProjectiles) {  
             projectile.update();
-            
-            for (auto& enemy : galaxianCyanEnemies) {
-                if (projectile.isCollision(enemy)) {
-                    points += enemy.pointsValue;
-                    projectile.remove = true;
-                    enemy.remove = true;
-                }
-            }
-            for (auto& enemy : galaxianRedEnemies) {
-                if (projectile.isCollision(enemy)) {
-                    points += enemy.pointsValue;
-                    projectile.remove = true;
-                    enemy.remove = true;
-                }
-            }
-            for (auto& enemy : galaxianPinkEnemies) {
-                if (projectile.isCollision(enemy)) {
-                    points += enemy.pointsValue;
-                    projectile.remove = true;
-                    enemy.remove = true;
-                }
-            }
-            for (auto& enemy : galaxianCommanderEnemies) {
-                if (projectile.isCollision(enemy)) {
-                    points += enemy.pointsValue;
-                    projectile.remove = true;
-                    enemy.remove = true;
-                }
-            }
-            window.draw(projectile, sf::RenderStates::Default);
-        }
 
+            if (projectile.remove) {
+                continue;
+            }
+
+            for (auto& row : enemiesGrid.getCells())
+            {
+                for (auto& enemy : row) 
+                {
+                    if (projectile.isCollision(enemy)) 
+                    {
+                        points += enemy.pointsValue;
+                        projectile.remove = true;
+                        enemy.remove = true;
+                    }
+                }
+            }
+        }
 
         //Borrar enemigos y proyectiles
         playerProjectiles.erase(
@@ -159,22 +96,13 @@ int main()
             std::remove_if(enemyProjectiles.begin(), enemyProjectiles.end(),
                 [](const Projectile& p) { return p.remove; }),
             enemyProjectiles.end());
-        galaxianCyanEnemies.erase(
-            std::remove_if(galaxianCyanEnemies.begin(), galaxianCyanEnemies.end(),
-                [](const GalaxianCyan& e) { return e.remove; }),
-            galaxianCyanEnemies.end());
-        galaxianRedEnemies.erase(
-            std::remove_if(galaxianRedEnemies.begin(), galaxianRedEnemies.end(),
-                [](const GalaxianRed& e) { return e.remove; }),
-            galaxianRedEnemies.end());
-        galaxianPinkEnemies.erase(
-            std::remove_if(galaxianPinkEnemies.begin(), galaxianPinkEnemies.end(),
-                [](const GalaxianPink& e) { return e.remove; }),
-            galaxianPinkEnemies.end());
-        galaxianCommanderEnemies.erase(
-            std::remove_if(galaxianCommanderEnemies.begin(), galaxianCommanderEnemies.end(),
-                [](const GalaxianCommander& e) { return e.remove; }),
-            galaxianCommanderEnemies.end());
+
+        for (auto& row : enemiesGrid.getCells()) {
+            row.erase(
+                std::remove_if(row.begin(), row.end(),
+                    [](const GalaxianCyan& enemy) { return enemy.remove; }),
+                row.end());
+        }
 
         //textos
         livesText.setString(std::to_string(player.getLives()));
@@ -184,19 +112,24 @@ int main()
         //if (player.getLives() == 0) {
         //}
 
-        // DRAW
-        for (auto& enemy : galaxianCyanEnemies) {
-            enemy.draw(window, sf::RenderStates::Default);
+        /* ---------------------------------------------------------------------- */
+        //                                 DRAW                                   //
+        /* ---------------------------------------------------------------------- */
+
+        for (const auto& projectile : enemyProjectiles) {
+            window.draw(projectile, sf::RenderStates::Default);
         }
-        for (auto& enemy : galaxianRedEnemies) {
-            enemy.draw(window, sf::RenderStates::Default);
+
+        for (const auto& projectile : playerProjectiles) {
+            window.draw(projectile, sf::RenderStates::Default);
         }
-        for (auto& enemy : galaxianPinkEnemies) {
-            enemy.draw(window, sf::RenderStates::Default);
+
+        for (const auto& row : enemiesGrid.getCells()) {
+            for (const auto& cell : row) {
+                cell.draw(window, sf::RenderStates::Default);
+            }
         }
-        for (auto& enemy : galaxianCommanderEnemies) {
-            enemy.draw(window, sf::RenderStates::Default);
-        }
+
         player.draw(window, sf::RenderStates::Default);
         window.draw(livesText);
         window.draw(pointsText);
