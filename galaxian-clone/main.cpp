@@ -15,10 +15,12 @@ int main()
     window.setFramerateLimit(MAX_FPS);
     Player player;
     GalaxianCyan galaxianCyan;
-    GalaxianRed galaxianRed;
+    GalaxianRed galaxianRed1;
+    GalaxianRed galaxianRed2;
     GalaxianPink galaxianPink;
     GalaxianCommander galaxianCommander;
-    Grid enemiesGrid(2, 2);
+    Grid enemiesGrid(3, 6);
+    //std::vector<GalaxianRed> redEnemies = { galaxianRed1, galaxianRed2 };
     std::vector<Projectile> playerProjectiles;
     std::vector<Projectile> enemyProjectiles;
     sf::Clock clock;
@@ -47,14 +49,17 @@ int main()
         // UPDATE
         player.update(deltaTime, playerProjectiles);
 
-        for (auto& projectile : enemyProjectiles) {
+        for (auto& projectile : enemyProjectiles)
+        {
             projectile.update();
 
-            if (projectile.remove) {
+            if (projectile.remove)
+            {
                 continue;
             }
             
-            for (auto& row : enemiesGrid.getCells()) {
+            // using matrix
+            /*for (auto& row : enemiesGrid.getCells()) {
                 for (auto& enemy : row) {
                     enemy.update(deltaTime, enemyProjectiles);
                     if (projectile.isCollision(player)) {
@@ -62,6 +67,18 @@ int main()
                         player._isHitted = true;
                         projectile.remove = true;
                     }
+                }
+            }*/
+
+            // using vector
+            for (auto& enemy : enemiesGrid.getCells())
+            {
+                enemy.update(deltaTime, enemyProjectiles);
+                if (projectile.isCollision(player))
+                {
+                    player.setLives(player.getLives() - 1);
+                    player._isHitted = true;
+                    projectile.remove = true;
                 }
             }
         }
@@ -73,7 +90,8 @@ int main()
                 continue;
             }
 
-            for (auto& row : enemiesGrid.getCells())
+            // matrix
+            /*for (auto& row : enemiesGrid.getCells())
             {
                 for (auto& enemy : row) 
                 {
@@ -84,6 +102,18 @@ int main()
                         enemy.remove = true;
                     }
                 }
+            }*/
+
+            // 1d vector
+            for (auto& enemy : enemiesGrid.getCells())
+            {
+                if (projectile.isCollision(enemy))
+                {
+                    points += enemy.pointsValue;
+                    projectile.remove = true;
+                    enemy.remove = true;
+                }
+                
             }
         }
 
@@ -97,12 +127,19 @@ int main()
                 [](const Projectile& p) { return p.remove; }),
             enemyProjectiles.end());
 
-        for (auto& row : enemiesGrid.getCells()) {
+        /*for (auto& row : enemiesGrid.getCells()) {
             row.erase(
                 std::remove_if(row.begin(), row.end(),
                     [](const GalaxianCyan& enemy) { return enemy.remove; }),
                 row.end());
-        }
+        }*/
+
+        std::vector<GalaxianCyan>& enemySprites = enemiesGrid.getCells();
+
+        enemySprites.erase(
+            std::remove_if(enemySprites.begin(), enemySprites.end(),
+                [](const GalaxianCyan& e) { return e.remove; }),
+            enemySprites.end());
 
         //textos
         livesText.setString(std::to_string(player.getLives()));
@@ -124,11 +161,17 @@ int main()
             window.draw(projectile, sf::RenderStates::Default);
         }
 
-        for (const auto& row : enemiesGrid.getCells()) {
-            for (const auto& cell : row) {
-                cell.draw(window, sf::RenderStates::Default);
-            }
-        }
+        //for (const auto& row : enemiesGrid.getCells()) {
+        //    for (const auto& cell : row) {
+        //        cell.draw(window, sf::RenderStates::Default);
+        //    }
+        //}
+
+        enemiesGrid.display(window, sf::RenderStates::Default);
+
+        //for (const auto& galRed : redEnemies) {
+        //    window.draw(galRed, sf::RenderStates::Default);
+        //}
 
         player.draw(window, sf::RenderStates::Default);
         window.draw(livesText);

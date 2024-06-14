@@ -13,7 +13,7 @@ GalaxianCyan::GalaxianCyan() {
 	//origen
 	_sprite.setOrigin(_sprite.getGlobalBounds().width / 2, _sprite.getGlobalBounds().height);
 	//escala
-	//_sprite.setScale(3, 3);
+	_sprite.setScale(3, 3);
 	//frame
 	_frame = 0;
 
