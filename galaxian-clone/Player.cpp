@@ -1,5 +1,6 @@
 #include "Player.h"
 #include "Projectile.h"
+#include <iostream>
 
 Player::Player()
 {
@@ -7,9 +8,9 @@ Player::Player()
 	_sprite.setTexture(_texture);
     sf::IntRect textureRect(3, 35, 12, 15); // player ship
     _sprite.setTextureRect(textureRect);
-    //_sprite.setScale(2.f, 2.f);
     _sprite.setOrigin(_sprite.getGlobalBounds().width / 2, _sprite.getGlobalBounds().height);
-    _sprite.setPosition(W_WIDTH / 2, W_HEIGHT);
+    _sprite.setScale(2.f, 2.f);
+    _sprite.setPosition(static_cast<float>(W_WIDTH) / 2, W_HEIGHT);
     _speed = { MOVEMENT_SPEED, MOVEMENT_SPEED };
     _timeSinceLastShot = 0.f;
     _shootCoolDown = SHOOT_COOLDOWN;
@@ -49,18 +50,20 @@ void Player::update(float deltaTime, std::vector<Projectile>& projectiles)
 
 
     // dont allow player to go out of the screen
-    if (_sprite.getGlobalBounds().left < 0) {
-        _sprite.setPosition(_sprite.getOrigin().x, _sprite.getPosition().y);
+    if ((_sprite.getGlobalBounds().left * 2.f) < 0) {
+        std::cout << "OUT OF WINDOW (LEFT)" << std::endl;
+        _sprite.setPosition(_sprite.getOrigin().x * 2.f, _sprite.getPosition().y);
     }
-    if (_sprite.getGlobalBounds().top < 0) {
-        _sprite.setPosition(_sprite.getPosition().x, _sprite.getOrigin().y);
+    if (_sprite.getGlobalBounds().top * 2.f < 0) {
+        _sprite.setPosition(_sprite.getPosition().x, _sprite.getOrigin().y * 2.f);
     }
 
     if (_sprite.getGlobalBounds().left + _sprite.getGlobalBounds().width > W_WIDTH) {
-        _sprite.setPosition(W_WIDTH - _sprite.getOrigin().x, _sprite.getPosition().y);
+        std::cout << "OUT OF WINDOW (RIGHT)" << std::endl;
+        _sprite.setPosition(W_WIDTH - _sprite.getOrigin().x * 2.f, _sprite.getPosition().y);
     }
     if (_sprite.getGlobalBounds().top + _sprite.getGlobalBounds().height > W_HEIGHT) {
-        _sprite.setPosition(_sprite.getPosition().x, W_HEIGHT - (_sprite.getGlobalBounds().height - _sprite.getOrigin().y));
+        _sprite.setPosition(_sprite.getPosition().x, W_HEIGHT - (_sprite.getGlobalBounds().height - _sprite.getOrigin().y * 2.f));
     }
 
     if (_frame == 0) {
@@ -112,7 +115,7 @@ void Player::setLives(int numLives)
     }
 }
 
-int Player::getLives()
+int Player::getLives() const
 {
     return _lives;
 }

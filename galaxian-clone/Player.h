@@ -18,7 +18,7 @@ private:
 
 public:
 	Player();
-	int getLives();
+	int getLives() const;
 	void setLives(int numLives);
 	void update(float deltaTime, std::vector<Projectile>& projectiles);
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;

@@ -11,12 +11,13 @@ Grid::Grid(int rows, int cols) {
         for (int j = 0; j < cols; j++) {
             // config enemy on grid 
             float xSpacing = 100.f;
-            float ySpacing = 120.f;
-            float spriteWidth = 12.f * 2.f; // 3 is the scale
-            float spriteHeight = 7.f * 2.f; // 3 is the scale
+            float ySpacing = 60.f;
+            float spriteWidth = 12.f * 3.f; // 3 is the scale
+            float spriteHeight = 7.f * 3.f; // 3 is the scale
+            float gridMarginLeft = (W_WIDTH - (spriteWidth + xSpacing) * cols) / 2;
 
             std::cout << "EACH CELL SPRITE" << std::endl;
-            _cells[i * cols + j].getSprite().setPosition(spriteWidth + (j + 1) * xSpacing, spriteHeight + (i + 1) * ySpacing); // global scale variable
+            _cells[i * cols + j].getSprite().setPosition(gridMarginLeft + spriteWidth + (j + 1) * xSpacing, 100.f + spriteHeight + (i + 1) * ySpacing); // global scale variable
         }
     }
 }
