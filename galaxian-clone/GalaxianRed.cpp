@@ -1,20 +1,13 @@
 #include "GalaxianRed.h"
 
-//sf::IntRect textureRect(4, 53, 10, 6); // red galaxian 1
-//sf::IntRect textureRect(21, 52, 10, 7); // red galaxian 2
-//sf::IntRect textureRect(38, 52, 10, 7); // red galaxian 3
-//sf::IntRect textureRect(53, 52, 13, 7); // red galaxian 4   
-
 GalaxianRed::GalaxianRed() {
-	_texture.loadFromFile("sprites-sheet.png");
-	_sprite.setTexture(_texture);
+	_texture = std::make_unique<sf::Texture>();
+	_texture->loadFromFile("sprites-sheet.png");
+	_sprite.setTexture(*_texture);
 	sf::IntRect textureRect(4, 53, 12, 7);
 	_sprite.setTextureRect(textureRect);
-	//origen
 	_sprite.setOrigin(_sprite.getGlobalBounds().width / 2, _sprite.getGlobalBounds().height);
-	//escala
 	_sprite.setScale(3, 3);
-	//frame
 	_frame = 0;
 	
 	_sprite.setPosition(200, 388);

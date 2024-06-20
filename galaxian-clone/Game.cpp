@@ -22,19 +22,6 @@ void Game::update(sf::RenderWindow& window, float deltaTime)
            continue;
        }
        
-       // using matrix
-       /*for (auto& row : enemiesGrid.getCells()) {
-           for (auto& enemy : row) {
-               enemy.update(deltaTime, enemyProjectiles);
-               if (projectile.isCollision(player)) {
-                   player.setLives(player.getLives() - 1);
-                   player._isHitted = true;
-                   projectile.remove = true;
-               }
-           }
-       }*/
-
-       // using vector
        for (auto& enemy : enemiesGrid.getCells())
        {
            enemy.update(deltaTime, enemyProjectiles);
@@ -54,21 +41,6 @@ void Game::update(sf::RenderWindow& window, float deltaTime)
            continue;
        }
 
-       // matrix
-       /*for (auto& row : enemiesGrid.getCells())
-       {
-           for (auto& enemy : row) 
-           {
-               if (projectile.isCollision(enemy)) 
-               {
-                   points += enemy.pointsValue;
-                   projectile.remove = true;
-                   enemy.remove = true;
-               }
-           }
-       }*/
-
-       // 1d vector
        for (auto& enemy : enemiesGrid.getCells())
        {
            if (projectile.isCollision(enemy))
@@ -90,13 +62,6 @@ void Game::update(sf::RenderWindow& window, float deltaTime)
        std::remove_if(enemyProjectiles.begin(), enemyProjectiles.end(),
            [](const Projectile& p) { return p.remove; }),
        enemyProjectiles.end());
-
-       /*for (auto& row : enemiesGrid.getCells()) {
-           row.erase(
-               std::remove_if(row.begin(), row.end(),
-                   [](const GalaxianCyan& enemy) { return enemy.remove; }),
-               row.end());
-       }*/
 
        std::vector<GalaxianCyan>& enemySprites = enemiesGrid.getCells();
 
@@ -125,18 +90,7 @@ void Game::update(sf::RenderWindow& window, float deltaTime)
            window.draw(projectile, sf::RenderStates::Default);
        }
 
-       //for (const auto& row : enemiesGrid.getCells()) {
-       //    for (const auto& cell : row) {
-       //        cell.draw(window, sf::RenderStates::Default);
-       //    }
-       //}
-
        enemiesGrid.display(window, sf::RenderStates::Default);
-
-       //for (const auto& galRed : redEnemies) {
-       //    window.draw(galRed, sf::RenderStates::Default);
-       //}
-
        player.draw(window, sf::RenderStates::Default);
        window.draw(livesText);
        window.draw(pointsText);

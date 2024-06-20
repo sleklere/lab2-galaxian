@@ -8,7 +8,7 @@ class GameObject : public Collisionable, public sf::Drawable
 {
 protected:
 	sf::Sprite _sprite;
-	sf::Texture _texture;
+	std::unique_ptr<sf::Texture> _texture; // se declara el puntero que eventualmente va a apuntar a la textura
 public:
 	virtual void update(float deltaTime, std::vector<Projectile>& projectiles) = 0;
 	virtual void updateDrawing() = 0;

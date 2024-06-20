@@ -1,8 +1,9 @@
 #include "GalaxianCommander.h"
 
 GalaxianCommander::GalaxianCommander() {
-	_texture.loadFromFile("sprites-sheet.png");
-	_sprite.setTexture(_texture);
+	_texture = std::make_unique<sf::Texture>();
+	_texture->loadFromFile("sprites-sheet.png");
+	_sprite.setTexture(*_texture);
 	sf::IntRect textureRect(29, 39, 14, 12);
 	_sprite.setTextureRect(textureRect);
 	//origen
