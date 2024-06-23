@@ -1,6 +1,7 @@
 #include "Game.h"
 #include "FilesManager.h"
 #include "Score.h"
+#include "Menu.h"
 
 Game::Game() : enemiesGrid(3, 6)
 {
@@ -8,10 +9,12 @@ Game::Game() : enemiesGrid(3, 6)
 	livesText.setFont(font);
 	livesText.setPosition(0, 30);
 	pointsText.setFont(font);
+	highScoreText.setFont(font);
+	highScoreText.setPosition(W_WIDTH / 2.f, 10.f);
 	score.setPlayerName("testPlayer");
 }
 
-void Game::update(sf::RenderWindow& window, float deltaTime, FilesManager<Score> scoresFile)
+void Game::update(sf::RenderWindow& window, float deltaTime, Menu& menu, FilesManager<Score> scoresFile, int highScore)
 {
 	player.update(deltaTime, playerProjectiles);
 
@@ -86,13 +89,26 @@ void Game::update(sf::RenderWindow& window, float deltaTime, FilesManager<Score>
 	livesText.setString(std::to_string(player.getLives()));
 	pointsText.setString(std::to_string(score.getPoints()));
 
+	if (score.getPoints() > highScore) {
+		highScoreText.setString(std::to_string(score.getPoints()));
+	}
+	else {
+		highScoreText.setString(std::to_string(highScore));
+	}
+
+	highScoreText.setPosition(W_WIDTH / 2.f - highScoreText.getGlobalBounds().width, 10.f);
+
 	// end game
 	if (player.getLives() == 0) {
 		std::cout << "juego finalizado" << std::endl;
+		std::cout << "score points: " << score.getPoints() << std::endl;
 
 		scoresFile.write(score);
+		std::cout << "Menu active: " << menu.getActive() << std::endl;
+		menu.setActive(true);
 
-		// TODO: volver al menu
+		// TODO: PANTALLA GAME OVER Y RESETEAR JUEGO
+		this->reset();
 	}
 
 	/* ---------------------------------------------------------------------- */
@@ -111,4 +127,15 @@ void Game::update(sf::RenderWindow& window, float deltaTime, FilesManager<Score>
 	player.draw(window, sf::RenderStates::Default);
 	window.draw(livesText);
 	window.draw(pointsText);
+	window.draw(highScoreText);
+}
+
+void Game::reset()
+{
+	playerProjectiles.clear();
+	enemyProjectiles.clear();
+	player.setLives(3);
+	player.resetPosition();
+	score.setPoints(0);
+	enemiesGrid = Grid(3, 6);
 }

@@ -13,7 +13,7 @@ Player::Player()
     _sprite.setPosition(static_cast<float>(W_WIDTH) / 2, W_HEIGHT);
     _speed = { MOVEMENT_SPEED, MOVEMENT_SPEED };
     _timeSinceLastShot = 0.f;
-    _shootCoolDown = SHOOT_COOLDOWN;
+    _shootCoolDown = PLAYER_SHOOT_COOLDOWN;
     _frame = 0;
     _isHitted = false;
 }
@@ -72,12 +72,10 @@ void Player::update(float deltaTime, std::vector<Projectile>& projectiles)
 
     //animacion si es golpeado por enemigo
     if (_isHitted) {
-        _frame += 0.02;
+        _frame += 0.02f;
 
         if (_frame >= 3) {
-            _frame = 0;
-            _isHitted = false;
-            _sprite.setPosition(W_WIDTH / 2, W_HEIGHT);
+            this->resetPosition();
         }
 
         if (_frame < 1) _sprite.setTextureRect({ 3, 79, 19, 16 });
@@ -93,11 +91,11 @@ void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const
 
 void Player::shoot(std::vector<Projectile>& projectiles)
 {
-    Projectile projectile(_facingDirection);
+    Projectile projectile(_facingDirection, true);
 
     projectile.fire(_sprite.getPosition(), PROJECTILE_SPEED_PLAYER);
 
-    projectiles.push_back(projectile);
+    projectiles.push_back(std::move(projectile));
 
     _timeSinceLastShot = 0.f;
 }
@@ -105,6 +103,13 @@ void Player::shoot(std::vector<Projectile>& projectiles)
 sf::FloatRect Player::getBounds() const
 {
     return _sprite.getGlobalBounds();
+}
+
+void Player::resetPosition()
+{
+    _frame = 0;
+    _isHitted = false;
+    _sprite.setPosition(W_WIDTH / 2, W_HEIGHT);
 }
 
 void Player::setLives(int numLives)
@@ -119,8 +124,3 @@ int Player::getLives() const
 {
     return _lives;
 }
-
-//sf::Vector2f Player::getCoordinates()
-//{
-//    return _sprite.getPosition();
-//}

@@ -25,5 +25,6 @@ public:
 	void shoot(std::vector<Projectile>& projectiles);
 	sf::FloatRect getBounds() const override;
 	bool _isHitted;
+	void resetPosition();
 	//sf::Vector2f getCoordinates();
 };

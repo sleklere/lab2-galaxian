@@ -12,6 +12,7 @@
 #include "Grid.h"
 #include "FilesManager.h"
 #include "Score.h"
+#include "Menu.h"
 
 class Game
 {
@@ -29,9 +30,11 @@ private:
     sf::Font font;
     sf::Text livesText;
     sf::Text pointsText;
+    sf::Text highScoreText;
     Score score;
 public:
 	Game();
-	void update(sf::RenderWindow& window, float deltaTime, FilesManager<Score> scoresFile);
+	void update(sf::RenderWindow& window, float deltaTime, Menu& menu, FilesManager<Score> scoresFile, int highScore);
+    void reset();
 };
 

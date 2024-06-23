@@ -1,11 +1,22 @@
 #include "Projectile.h"
+#include <iostream>
 
-Projectile::Projectile(const int direction)
+Projectile::Projectile(const int direction, bool isPlayer)
 {
-	_texture.loadFromFile("sprites-sheet.png");
-	_sprite.setTexture(_texture);
-    sf::IntRect textureRect(65, 39, 1, 4); // white projectile
-    _sprite.setTextureRect(textureRect);
+	_texture = std::make_unique<sf::Texture>();
+	_texture->loadFromFile("sprites-sheet.png");
+	_sprite.setTexture(*_texture);
+	//sf::IntRect textureRect;
+
+	if (isPlayer) {
+		sf::IntRect textureRect(73, 39, 1, 4); // yellow projectile
+		_sprite.setTextureRect(textureRect);
+	}
+	else {
+		sf::IntRect textureRect(65, 39, 1, 4); // white projectile
+		_sprite.setTextureRect(textureRect);
+	}
+
 	_direction = direction;
 	_isFire = false;
 	remove = false;

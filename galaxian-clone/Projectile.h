@@ -6,14 +6,14 @@
 class Projectile : public sf::Drawable, public Collisionable
 {
 private:
-	sf::Texture _texture;
+	std::unique_ptr<sf::Texture> _texture;
 	sf::Sprite _sprite;
 	float _speed;
 	bool _isFire;
 	int _direction;
 public:
 	bool remove = false;
-	Projectile(int direction);
+	Projectile(int direction, bool isPlayer = false);
 	void update();
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 	sf::FloatRect getBounds() const override;

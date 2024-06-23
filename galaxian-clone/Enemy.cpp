@@ -9,7 +9,7 @@ Enemy::Enemy() {
 	std::random_device rd;
 	std::mt19937 gen(rd());
 
-	std::uniform_real_distribution<float> dis(0.0f, 20.0f);
+	std::uniform_real_distribution<float> dis(0.0f, MAX_ENEMY_SHOOT_COOLDOWN);
 
 	_shootCoolDown = dis(gen);
 }		
@@ -40,7 +40,7 @@ void Enemy::shoot(std::vector<Projectile>& projectiles)
 
 	projectile.fire(_sprite.getPosition(), PROJECTILE_SPEED_ENEMY);
 
-	projectiles.push_back(projectile);
+	projectiles.push_back(std::move(projectile));
 
 	_timeSinceLastShot = 0.f;
 }
