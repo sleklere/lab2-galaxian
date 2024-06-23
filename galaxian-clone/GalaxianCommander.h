@@ -6,7 +6,5 @@ class GalaxianCommander : public Enemy
 {
 public:
 	GalaxianCommander();
-	//void update() override;
-	//void updateDrawing() override;
 };
 

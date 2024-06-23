@@ -6,7 +6,6 @@ Projectile::Projectile(const int direction, bool isPlayer)
 	_texture = std::make_unique<sf::Texture>();
 	_texture->loadFromFile("sprites-sheet.png");
 	_sprite.setTexture(*_texture);
-	//sf::IntRect textureRect;
 
 	if (isPlayer) {
 		sf::IntRect textureRect(73, 39, 1, 4); // yellow projectile
@@ -20,11 +19,7 @@ Projectile::Projectile(const int direction, bool isPlayer)
 	_direction = direction;
 	_isFire = false;
 	remove = false;
-	//_speed = { 0,0 };
 	_sprite.setScale(2.f, 2.f);
-
-
-    //sf::IntRect textureRect(73, 39, 1, 4); // yellow projectile
 
     //sf::IntRect textureRect(18, 38, 6, 12); // flag
 }

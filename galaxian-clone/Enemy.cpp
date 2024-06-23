@@ -24,11 +24,6 @@ void Enemy::update(float deltaTime, std::vector<Projectile>& projectiles) {
 	}
 }
 
-void Enemy::updateDrawing()
-{
-	//
-}
-
 sf::FloatRect Enemy::getBounds() const
 {
 	return _sprite.getGlobalBounds();

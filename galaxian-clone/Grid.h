@@ -7,8 +7,6 @@
 class Grid {
 private:
     int _rows, _cols;
-    //std::vector<std::vector<GalaxianCyan>> _cells;
-    //std::vector<GalaxianCyan> _cells;
     std::vector<std::vector<std::unique_ptr<Enemy>>> _cells;
 
 public:
@@ -16,7 +14,6 @@ public:
     Grid(int rows, int cols);
     void display(sf::RenderTarget& target, sf::RenderStates states) const;
     void moveLaterally();
-    //std::vector<GalaxianCyan>& getCells();
     std::vector<std::vector<std::unique_ptr<Enemy>>>& getCells();
 };
 

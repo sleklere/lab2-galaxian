@@ -24,15 +24,12 @@ void Game::update(sf::RenderWindow& window, float deltaTime, Menu& menu, FilesMa
 
 		for (auto& enemy : row)
 		{
-			//std::cout << "Enemies update for loop" << std::endl;
 			if (enemy != nullptr) {
 				enemy->update(deltaTime, enemyProjectiles);
 			}
 
 			for (Projectile& projectile : enemyProjectiles)
 			{
-				//std::cout << "Enemy projectiles update for loop" << std::endl;
-
 				projectile.update();
 
 				if (projectile.remove)
@@ -86,13 +83,6 @@ void Game::update(sf::RenderWindow& window, float deltaTime, Menu& menu, FilesMa
 			[](const Projectile& p) { return p.remove; }),
 		enemyProjectiles.end());
 
-	//std::vector<GalaxianCyan>& enemySprites = enemiesGrid.getCells();
-
-	//enemySprites.erase(
-	//	std::remove_if(enemySprites.begin(), enemySprites.end(),
-	//		[](const GalaxianCyan& e) { return e.remove; }),
-	//	enemySprites.end());
-
 	for (auto& row : enemiesGrid.getCells()) {
 		row.erase(
 			std::remove_if(row.begin(), row.end(),
@@ -122,7 +112,7 @@ void Game::update(sf::RenderWindow& window, float deltaTime, Menu& menu, FilesMa
 		std::cout << "Menu active: " << menu.getActive() << std::endl;
 		menu.setActive(true);
 
-		// TODO: PANTALLA GAME OVER Y RESETEAR JUEGO
+		// TODO: PANTALLA GAME OVER
 		this->reset();
 	}
 
