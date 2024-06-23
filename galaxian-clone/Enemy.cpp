@@ -1,9 +1,17 @@
 #include "Enemy.h"
 #include "Projectile.h"
+#include <iostream>
+#include <random>
 
 Enemy::Enemy() {
 	_timeSinceLastShot = 0.f;
-	_shootCoolDown = 2.0f;
+
+	std::random_device rd;
+	std::mt19937 gen(rd());
+
+	std::uniform_real_distribution<float> dis(0.0f, 20.0f);
+
+	_shootCoolDown = dis(gen);
 }		
 
 void Enemy::update(float deltaTime, std::vector<Projectile>& projectiles) {

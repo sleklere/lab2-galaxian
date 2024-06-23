@@ -12,7 +12,7 @@ private:
 	bool _isFire;
 	int _direction;
 public:
-	bool remove;
+	bool remove = false;
 	Projectile(int direction);
 	void update();
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;

@@ -1,3 +1,18 @@
-﻿  Player.cpp
+﻿  Enemy.cpp
+  GalaxianCommander.cpp
+  GalaxianCyan.cpp
+C:\Users\slekl\OneDrive\Escritorio\repos\lab2-galaxian\galaxian-clone\GalaxianCyan.cpp(18,12): warning C4305: '+=': truncation from 'double' to 'float'
+  GalaxianPink.cpp
+C:\Users\slekl\OneDrive\Escritorio\repos\lab2-galaxian\galaxian-clone\GalaxianPink.cpp(18,12): warning C4305: '+=': truncation from 'double' to 'float'
+  GalaxianRed.cpp
+C:\Users\slekl\OneDrive\Escritorio\repos\lab2-galaxian\galaxian-clone\GalaxianRed.cpp(18,12): warning C4305: '+=': truncation from 'double' to 'float'
+  Game.cpp
+C:\Users\slekl\OneDrive\Escritorio\repos\lab2-galaxian\galaxian-clone\FilesManager.h(47,14): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  GameObject.cpp
+  Grid.cpp
+  Player.cpp
 C:\Users\slekl\OneDrive\Escritorio\repos\lab2-galaxian\galaxian-clone\Player.cpp(75,19): warning C4305: '+=': truncation from 'double' to 'float'
+  Projectile.cpp
+  main.cpp
+  Generating Code...
   galaxian-clone.vcxproj -> C:\Users\slekl\OneDrive\Escritorio\repos\lab2-galaxian\galaxian-clone\x64\Debug\galaxian-clone.exe

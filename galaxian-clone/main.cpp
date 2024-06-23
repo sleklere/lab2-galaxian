@@ -3,6 +3,8 @@
 #include "Menu.h"
 #include "Game.h"
 #include "Scoreboard.h"
+#include "FilesManager.h"
+#include "Score.h"
 #include <iostream>
 
 int main()
@@ -13,6 +15,9 @@ int main()
     Menu menu;
     Game game;
     Scoreboard scoreboard;
+    FilesManager<Score> scoresFile("scores.dat");
+
+    std::cout << scoresFile.countEntries() << " scores" << std::endl;
 
     while (window.isOpen())
     {
@@ -37,7 +42,9 @@ int main()
         if(!menu.getActive()) {
             switch (menu.getChoice()) {
                 case 1:
-                     game.update(window, deltaTime);
+                    // TODO: player username
+
+                     game.update(window, deltaTime, scoresFile);
                     break;
                 case 2:
                      scoreboard.update(window, menu);

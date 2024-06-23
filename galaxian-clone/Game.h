@@ -10,6 +10,8 @@
 #include "GalaxianPink.h"
 #include "GalaxianCommander.h"
 #include "Grid.h"
+#include "FilesManager.h"
+#include "Score.h"
 
 class Game
 {
@@ -27,9 +29,9 @@ private:
     sf::Font font;
     sf::Text livesText;
     sf::Text pointsText;
-    int points;
+    Score score;
 public:
 	Game();
-	void update(sf::RenderWindow& window, float deltaTime);
+	void update(sf::RenderWindow& window, float deltaTime, FilesManager<Score> scoresFile);
 };
 
