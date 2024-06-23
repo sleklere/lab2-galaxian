@@ -20,29 +20,34 @@ void Game::update(sf::RenderWindow& window, float deltaTime, Menu& menu, FilesMa
 
 	enemiesGrid.moveLaterally();
 
-	for (auto& enemy : enemiesGrid.getCells())
-	{
-		//std::cout << "Enemies update for loop" << std::endl;
-		enemy.update(deltaTime, enemyProjectiles);
+	for (auto& row : enemiesGrid.getCells()) {
 
-		for (Projectile& projectile : enemyProjectiles)
+		for (auto& enemy : row)
 		{
-			//std::cout << "Enemy projectiles update for loop" << std::endl;
-
-			projectile.update();
-
-			if (projectile.remove)
-			{
-				continue;
+			//std::cout << "Enemies update for loop" << std::endl;
+			if (enemy != nullptr) {
+				enemy->update(deltaTime, enemyProjectiles);
 			}
 
-			if (projectile.isCollision(player))
+			for (Projectile& projectile : enemyProjectiles)
 			{
-				player.setLives(player.getLives() - 1);
-				player._isHitted = true;
-				projectile.remove = true;
-			}
+				//std::cout << "Enemy projectiles update for loop" << std::endl;
 
+				projectile.update();
+
+				if (projectile.remove)
+				{
+					continue;
+				}
+
+				if (projectile.isCollision(player))
+				{
+					player.setLives(player.getLives() - 1);
+					player._isHitted = true;
+					projectile.remove = true;
+				}
+
+			}
 		}
 
 	}
@@ -56,13 +61,16 @@ void Game::update(sf::RenderWindow& window, float deltaTime, Menu& menu, FilesMa
 			continue;
 		}
 
-		for (auto& enemy : enemiesGrid.getCells())
+		for (auto& row : enemiesGrid.getCells())
 		{
-			if (projectile.isCollision(enemy))
-			{
-				score.addPoints(enemy.pointsValue);
-				projectile.remove = true;
-				enemy.remove = true;
+			for (auto& enemy : row) {
+
+				if (projectile.isCollision(*enemy))
+				{
+					score.addPoints(enemy->pointsValue);
+					projectile.remove = true;
+					enemy->remove = true;
+				}
 			}
 
 		}
@@ -78,12 +86,19 @@ void Game::update(sf::RenderWindow& window, float deltaTime, Menu& menu, FilesMa
 			[](const Projectile& p) { return p.remove; }),
 		enemyProjectiles.end());
 
-	std::vector<GalaxianCyan>& enemySprites = enemiesGrid.getCells();
+	//std::vector<GalaxianCyan>& enemySprites = enemiesGrid.getCells();
 
-	enemySprites.erase(
-		std::remove_if(enemySprites.begin(), enemySprites.end(),
-			[](const GalaxianCyan& e) { return e.remove; }),
-		enemySprites.end());
+	//enemySprites.erase(
+	//	std::remove_if(enemySprites.begin(), enemySprites.end(),
+	//		[](const GalaxianCyan& e) { return e.remove; }),
+	//	enemySprites.end());
+
+	for (auto& row : enemiesGrid.getCells()) {
+		row.erase(
+			std::remove_if(row.begin(), row.end(),
+				[](const std::unique_ptr<Enemy>& e) { return e == nullptr || e->remove; }),
+			row.end());
+	}
 
 	////textos
 	livesText.setString(std::to_string(player.getLives()));

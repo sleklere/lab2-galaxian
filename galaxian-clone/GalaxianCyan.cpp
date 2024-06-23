@@ -27,12 +27,12 @@ void GalaxianCyan::updateDrawing() {
 	if (_frame >= 2 && _frame <= 3) _sprite.setTextureRect({ 38, 61, 12, 8 });
 }
 
-sf::Sprite& GalaxianCyan::getSprite()
-{
-	return _sprite;
-}
-
-const sf::Sprite& GalaxianCyan::getSprite() const
-{
-	return _sprite;
-}
+//sf::Sprite& GalaxianCyan::getSprite()
+//{
+//	return _sprite;
+//}
+//
+//const sf::Sprite& GalaxianCyan::getSprite() const
+//{
+//	return _sprite;
+//}
