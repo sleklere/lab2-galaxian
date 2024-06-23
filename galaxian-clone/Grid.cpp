@@ -3,6 +3,7 @@
 #include <iostream>
 
 Grid::Grid(int rows, int cols) {
+    xDirection = 1.f;
     _rows = rows;
     _cols = cols;
 
@@ -25,6 +26,28 @@ Grid::Grid(int rows, int cols) {
 void Grid::display(sf::RenderTarget& target, sf::RenderStates states) const {
     for (const auto& enemy : _cells) {
         target.draw(enemy, states);
+    }
+}
+
+void Grid::moveLaterally()
+{
+    float rightEdgeSpace = W_WIDTH - (_cells[_cells.size() - 1].getSprite().getGlobalBounds().left + 12.f * 3.f);
+    float leftEdgeSpace = _cells[0].getSprite().getGlobalBounds().left;
+
+
+    if (rightEdgeSpace < 150.f) {
+        xDirection = -1.f;
+    }
+    else if (leftEdgeSpace < 150.f) {
+        xDirection = 1.f;
+    }
+
+    for (auto& enemy : _cells) {
+        sf::Vector2f direction;
+        direction.x = 2.f * xDirection;
+        direction.y = 0;
+
+        enemy.getSprite().move(direction);
     }
 }
 

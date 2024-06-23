@@ -11,8 +11,10 @@ private:
     std::vector<GalaxianCyan> _cells;
 
 public:
+    float xDirection;
     Grid(int rows, int cols);
     void display(sf::RenderTarget& target, sf::RenderStates states) const;
+    void moveLaterally();
     std::vector<GalaxianCyan>& getCells();
 };
 

@@ -10,6 +10,7 @@ Projectile::Projectile(const int direction)
 	_isFire = false;
 	remove = false;
 	//_speed = { 0,0 };
+	_sprite.setScale(2.f, 2.f);
 
 
     //sf::IntRect textureRect(73, 39, 1, 4); // yellow projectile

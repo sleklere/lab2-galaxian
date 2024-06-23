@@ -15,6 +15,8 @@ void Game::update(sf::RenderWindow& window, float deltaTime, FilesManager<Score>
 {
 	player.update(deltaTime, playerProjectiles);
 
+	enemiesGrid.moveLaterally();
+
 	for (auto& enemy : enemiesGrid.getCells())
 	{
 		//std::cout << "Enemies update for loop" << std::endl;
