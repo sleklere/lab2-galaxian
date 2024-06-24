@@ -44,7 +44,9 @@ void Player::update(float deltaTime, std::vector<Projectile>& projectiles)
         shoot(projectiles);
     }
 
-    _sprite.move(_speed);
+    if (!_isHitted) {
+        _sprite.move(_speed);
+    }
     /*float angle = std::atan2(_speed.y, _speed.x) * 180 / 3.14159265;
     _sprite.setRotation(angle + 90);*/
 
@@ -72,15 +74,15 @@ void Player::update(float deltaTime, std::vector<Projectile>& projectiles)
 
     //animacion si es golpeado por enemigo
     if (_isHitted) {
-        _frame += 0.02f;
+        _frame += 0.01f;
 
-        if (_frame >= 3) {
+        if (_frame >= 1.f) {
             this->resetPosition();
         }
 
-        if (_frame < 1) _sprite.setTextureRect({ 3, 79, 19, 16 });
-        if (_frame >= 1 && _frame <= 2) _sprite.setTextureRect({ 29, 79, 19, 16 });
-        if (_frame >= 2 && _frame <= 3) _sprite.setTextureRect({ 51, 79, 24, 16 });
+        if (_frame < 0.1f) _sprite.setTextureRect({ 3, 79, 19, 16 });
+        if (_frame >= 0.1f && _frame <= 0.2f) _sprite.setTextureRect({ 29, 79, 19, 16 });
+        if (_frame >= 0.2f && _frame <= 0.3f) _sprite.setTextureRect({ 51, 79, 24, 16 });
     }
 }
 

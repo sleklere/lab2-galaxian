@@ -37,7 +37,7 @@ void Game::update(sf::RenderWindow& window, float deltaTime, Menu& menu, FilesMa
 					continue;
 				}
 
-				if (projectile.isCollision(player))
+				if (projectile.isCollision(player) && !player._isHitted)
 				{
 					player.setLives(player.getLives() - 1);
 					player._isHitted = true;

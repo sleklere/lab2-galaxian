@@ -52,7 +52,8 @@ int main()
             }
         }
 
-        float deltaTime = clock.restart().asSeconds();
+        //float deltaTime = clock.restart().asSeconds();
+        float deltaTime = 0.015f;
 
         if (menu.getActive()) {
             menu.update(window);
