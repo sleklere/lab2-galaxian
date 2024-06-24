@@ -6,10 +6,14 @@ Player::Player()
 {
 	_texture.loadFromFile("sprites-sheet.png");
 	_sprite.setTexture(_texture);
+    _fixedProjectileSprite.setTexture(_texture);
     sf::IntRect textureRect(3, 35, 12, 15); // player ship
+    sf::IntRect projectileTextureRect(73, 39, 1, 4);
     _sprite.setTextureRect(textureRect);
+    _fixedProjectileSprite.setTextureRect(projectileTextureRect);
     _sprite.setOrigin(_sprite.getGlobalBounds().width / 2, _sprite.getGlobalBounds().height);
     _sprite.setScale(2.f, 2.f);
+    _fixedProjectileSprite.setScale(2.f, 2.f);
     _sprite.setPosition(static_cast<float>(W_WIDTH) / 2, W_HEIGHT);
     _speed = { MOVEMENT_SPEED, MOVEMENT_SPEED };
     _timeSinceLastShot = 0.f;
@@ -46,6 +50,8 @@ void Player::update(float deltaTime, std::vector<Projectile>& projectiles)
 
     if (!_isHitted) {
         _sprite.move(_speed);
+        _fixedProjectileSprite.setPosition(_sprite.getPosition().x, _sprite.getGlobalBounds().top - _fixedProjectileSprite.getGlobalBounds().height);
+        _fixedProjectileSprite.move(0.f, 1.f);
     }
     /*float angle = std::atan2(_speed.y, _speed.x) * 180 / 3.14159265;
     _sprite.setRotation(angle + 90);*/
@@ -89,13 +95,21 @@ void Player::update(float deltaTime, std::vector<Projectile>& projectiles)
 void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
     target.draw(_sprite, states);
+    if (_timeSinceLastShot >= _shootCoolDown && !_isHitted) {
+        target.draw(_fixedProjectileSprite, states);
+    }
 }
 
 void Player::shoot(std::vector<Projectile>& projectiles)
 {
     Projectile projectile(_facingDirection, true);
 
-    projectile.fire(_sprite.getPosition(), PROJECTILE_SPEED_PLAYER);
+    sf::Vector2f currentPos = _sprite.getPosition();
+
+    currentPos.x = _sprite.getPosition().x;
+    currentPos.y = _sprite.getGlobalBounds().top - _fixedProjectileSprite.getGlobalBounds().height;
+
+    projectile.fire(currentPos, PROJECTILE_SPEED_PLAYER);
 
     projectiles.push_back(std::move(projectile));
 

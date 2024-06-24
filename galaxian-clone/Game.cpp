@@ -6,16 +6,53 @@
 Game::Game() : enemiesGrid(3, 6)
 {
 	font.loadFromFile("ARCADE_I.ttf");
-	livesText.setFont(font);
-	livesText.setPosition(0, 30);
 	pointsText.setFont(font);
 	highScoreText.setFont(font);
 	highScoreText.setPosition(W_WIDTH / 2.f, 10.f);
 	score.setPlayerName("testPlayer");
+	pointsText.setFillColor(sf::Color::Red);
+	highScoreText.setFillColor(sf::Color::Red);
+	generalTexture.loadFromFile("sprites-sheet.png");
+
+	float livesPadding = 10.f;
+
+	for (int i = 0; i < 3; i++) {
+		lifeSprites[i].setTexture(generalTexture);
+		sf::IntRect textureRect(3, 35, 12, 15); // player ship
+		lifeSprites[i].setTextureRect(textureRect);
+		lifeSprites[i].setScale(2.f, 2.f);
+		lifeSprites[i].setPosition(static_cast<float>(i) * 40.f + livesPadding, W_HEIGHT - lifeSprites[i].getGlobalBounds().height - livesPadding);
+
+	}
+
+	backgroundTexture.loadFromFile("background.png");
+
+	float scaleY = static_cast<float>(W_HEIGHT) / backgroundTexture.getSize().y;
+
+	backgroundSprite1.setTexture(backgroundTexture);
+	backgroundSprite2.setTexture(backgroundTexture);
+
+	// el segundo fondo va justo abajo del primero
+	backgroundSprite1.setPosition(0, 0);
+	backgroundSprite2.setPosition(0, -static_cast<float>(backgroundTexture.getSize().y) * scaleY); //static_cast<float> previene error de tipos sin signo
+
+	backgroundSpeed = 100.f;
 }
 
 void Game::update(sf::RenderWindow& window, float deltaTime, Menu& menu, FilesManager<Score> scoresFile, int highScore)
 {
+
+	backgroundSprite1.move(0, backgroundSpeed * deltaTime);
+	backgroundSprite2.move(0, backgroundSpeed * deltaTime);
+
+	// se 'envuelven' los fondos para que el scroll sea infinito
+	if (backgroundSprite1.getPosition().y >= backgroundTexture.getSize().y * backgroundSprite1.getScale().y) {
+		backgroundSprite1.setPosition(0, backgroundSprite2.getPosition().y - backgroundTexture.getSize().y * backgroundSprite1.getScale().y);
+	}
+	if (backgroundSprite2.getPosition().y >= backgroundTexture.getSize().y * backgroundSprite2.getScale().y) {
+		backgroundSprite2.setPosition(0, backgroundSprite1.getPosition().y - backgroundTexture.getSize().y * backgroundSprite2.getScale().y);
+	}
+
 	player.update(deltaTime, playerProjectiles);
 
 	enemiesGrid.moveLaterally();
@@ -91,7 +128,6 @@ void Game::update(sf::RenderWindow& window, float deltaTime, Menu& menu, FilesMa
 	}
 
 	////textos
-	livesText.setString(std::to_string(player.getLives()));
 	pointsText.setString(std::to_string(score.getPoints()));
 
 	if (score.getPoints() > highScore) {
@@ -120,6 +156,10 @@ void Game::update(sf::RenderWindow& window, float deltaTime, Menu& menu, FilesMa
 	//                                 DRAW                                   //
 	/* ---------------------------------------------------------------------- */
 
+	// importante que se dibuje primero el fondo
+	window.draw(backgroundSprite1);
+	window.draw(backgroundSprite2);
+
 	for (const auto& projectile : enemyProjectiles) {
 		window.draw(projectile, sf::RenderStates::Default);
 	}
@@ -130,9 +170,12 @@ void Game::update(sf::RenderWindow& window, float deltaTime, Menu& menu, FilesMa
 
 	enemiesGrid.display(window, sf::RenderStates::Default);
 	player.draw(window, sf::RenderStates::Default);
-	window.draw(livesText);
+	for (int i = 0; i < player.getLives(); i++) {
+		window.draw(lifeSprites[i]);
+	}
 	window.draw(pointsText);
 	window.draw(highScoreText);
+
 }
 
 void Game::reset()

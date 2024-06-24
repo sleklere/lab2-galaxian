@@ -18,21 +18,21 @@ class Game
 {
 private:
     Player player;
-    GalaxianCyan galaxianCyan;
-    GalaxianRed galaxianRed1;
-    GalaxianRed galaxianRed2;
-    GalaxianPink galaxianPink;
-    GalaxianCommander galaxianCommander;
     Grid enemiesGrid;
     std::vector<Projectile> playerProjectiles;
     std::vector<Projectile> enemyProjectiles;
     sf::Clock clock;
     sf::Font font;
-    sf::Text livesText;
     sf::Text pointsText;
     sf::Text highScoreText;
+    sf::Sprite lifeSprites[3];
     Score score;
+    sf::Texture backgroundTexture;
+    sf::Sprite backgroundSprite1;
+    sf::Sprite backgroundSprite2;
+    float backgroundSpeed;
 public:
+    sf::Texture generalTexture;
 	Game();
 	void update(sf::RenderWindow& window, float deltaTime, Menu& menu, FilesManager<Score> scoresFile, int highScore);
     void reset();

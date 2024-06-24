@@ -8,6 +8,7 @@ class Player : public Collisionable, sf::Drawable
 {
 private:
 	sf::Sprite _sprite;
+	sf::Sprite _fixedProjectileSprite;
 	sf::Texture _texture;
 	sf::Vector2f _speed;
 	float _shootCoolDown;

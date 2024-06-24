@@ -16,7 +16,7 @@ Grid::Grid(int rows, int cols) {
 		_cells[i].resize(_cols);
 		for (int j = 0; j < _cols; j++) {
 			float xSpacing = 50.f;
-			float ySpacing = 60.f;
+			float ySpacing = 40.f;
 			float spriteWidth = 12.f * 3.f; // 3 is the scale
 			float spriteHeight = 7.f * 3.f; // 3 is the scale
 			float gridMarginLeft = (W_WIDTH - (spriteWidth + xSpacing) * _cols) / 2;
