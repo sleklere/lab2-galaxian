@@ -13,6 +13,7 @@
 #include "FilesManager.h"
 #include "Score.h"
 #include "Menu.h"
+#include "GameOver.h"
 
 class Game
 {
@@ -31,10 +32,12 @@ private:
     sf::Sprite backgroundSprite1;
     sf::Sprite backgroundSprite2;
     float backgroundSpeed;
+
+    float time; ////////////
 public:
     sf::Texture generalTexture;
 	Game();
-	void update(sf::RenderWindow& window, float deltaTime, Menu& menu, FilesManager<Score> scoresFile, int highScore);
+	void update(sf::RenderWindow& window, float deltaTime, Menu& menu, FilesManager<Score> scoresFile, int highScore, GameOver& gameOver);
     void reset();
 };
 

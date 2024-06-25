@@ -14,7 +14,7 @@ Player::Player()
     _sprite.setOrigin(_sprite.getGlobalBounds().width / 2, _sprite.getGlobalBounds().height);
     _sprite.setScale(2.f, 2.f);
     _fixedProjectileSprite.setScale(2.f, 2.f);
-    _sprite.setPosition(static_cast<float>(W_WIDTH) / 2, W_HEIGHT);
+    _sprite.setPosition(static_cast<float>(W_WIDTH) / 2, W_HEIGHT - 20);
     _speed = { MOVEMENT_SPEED, MOVEMENT_SPEED };
     _timeSinceLastShot = 0.f;
     _shootCoolDown = PLAYER_SHOOT_COOLDOWN;
@@ -26,12 +26,12 @@ void Player::update(float deltaTime, std::vector<Projectile>& projectiles)
 {   
     _speed = { 0, 0 };
 
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
+   /* if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
         _speed.y = -MOVEMENT_SPEED;
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
         _speed.y = MOVEMENT_SPEED;
-    }
+    }*/
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
         _speed.x = -MOVEMENT_SPEED;
     }
@@ -82,7 +82,7 @@ void Player::update(float deltaTime, std::vector<Projectile>& projectiles)
     if (_isHitted) {
         _frame += 0.01f;
 
-        if (_frame >= 1.f) {
+        if (_frame >= 0.6f) {
             this->resetPosition();
         }
 
@@ -125,8 +125,9 @@ void Player::resetPosition()
 {
     _frame = 0;
     _isHitted = false;
-    _sprite.setPosition(W_WIDTH / 2, W_HEIGHT);
+    _sprite.setPosition(W_WIDTH / 2, W_HEIGHT - 20);
 }
+
 
 void Player::setLives(int numLives)
 {
@@ -139,4 +140,9 @@ void Player::setLives(int numLives)
 int Player::getLives() const
 {
     return _lives;
+}
+
+sf::Vector2f Player::getPosition()
+{
+    return _sprite.getPosition();
 }

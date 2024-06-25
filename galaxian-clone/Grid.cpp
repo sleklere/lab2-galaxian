@@ -10,6 +10,7 @@ Grid::Grid(int rows, int cols) {
 	xDirection = 1.f;
 	_rows = 5;
 	_cols = 10;
+	_amountEnemies = 0;
 
 	_cells.resize(_rows);
 	for (int i = 0; i < _rows; i++) {
@@ -38,7 +39,16 @@ Grid::Grid(int rows, int cols) {
 			std::cout << "EACH CELL SPRITE" << std::endl;
 
 			if (_cells[i][j] != nullptr) {
-				_cells[i][j]->getSprite().setPosition(gridMarginLeft + spriteWidth + (j + 1) * xSpacing, 100.f + spriteHeight + (i + 1) * ySpacing);
+				//_cells[i][j]->getSprite().setPosition(gridMarginLeft + spriteWidth + (j + 1) * xSpacing, 100.f + spriteHeight + (i + 1) * ySpacing);
+				if (j % 2 == 0) {
+					_cells[i][j]->getSprite().setPosition(gridMarginLeft + spriteWidth + (j + 1) * xSpacing, (100.f + spriteHeight + (i + 1) * ySpacing) + 4);
+					_cells[i][j]->_evenColumn = true;
+				}
+				else {
+					_cells[i][j]->getSprite().setPosition(gridMarginLeft + spriteWidth + (j + 1) * xSpacing, 100.f + spriteHeight + (i + 1) * ySpacing);
+					_cells[i][j]->_evenColumn = false;
+				}
+				_amountEnemies++;
 			}
 		}
 	}
@@ -113,4 +123,9 @@ void Grid::moveLaterally()
 
 std::vector<std::vector<std::unique_ptr<Enemy>>>& Grid::getCells() {
 	return _cells;
+}
+
+int Grid::getAmountEnemies()
+{
+	return _amountEnemies;
 }

@@ -10,19 +10,34 @@ GalaxianRed::GalaxianRed() {
 	_sprite.setScale(3, 3);
 	_frame = 0;
 	
-	_sprite.setPosition(200, 388);
+	/*_sprite.setPosition(200, 388);*/
 	pointsValue = 50;
+	_isHitted = false;
+	_frameDeath = 0;
 }
 
 void GalaxianRed::updateDrawing() {
 	_frame += 0.02;
 
-	if (_frame >= 3) { //3 porq son 3 frames de mi imagen
-		_frame = 0;
+	if (!_isHitted) {
+		if (_frame >= 3) { //3 porq son 3 frames de mi imagen
+			_frame = 0;
+		}
+
+		if (_frame < 1) _sprite.setTextureRect({ 4, 52, 12, 8 });
+		if (_frame >= 1 && _frame <= 2) _sprite.setTextureRect({ 21, 52, 12, 8 });
+		if (_frame >= 2 && _frame <= 3) _sprite.setTextureRect({ 38, 52, 12, 8 });
 	}
 
-	//_sprite.setTextureRect({ 4 + int(_frame) * 12, 53, 12, 7 });
-	if (_frame < 1) _sprite.setTextureRect({ 4, 52, 12, 8 });
-	if (_frame >= 1 && _frame <= 2) _sprite.setTextureRect({ 21, 52, 12, 8 });
-	if (_frame >= 2 && _frame <= 3) _sprite.setTextureRect({ 38, 52, 12, 8 });
+	if (_isHitted) {
+		_frameDeath += 0.02f;
+
+		if (_frameDeath >= 0.26f) {
+			this->remove = true;
+		}
+
+		if (_frameDeath < 0.1f) _sprite.setTextureRect({ 3, 79, 19, 16 });
+		if (_frameDeath >= 0.1f && _frameDeath <= 0.2f) _sprite.setTextureRect({ 29, 79, 19, 16 });
+		if (_frameDeath >= 0.2f && _frameDeath <= 0.26f) _sprite.setTextureRect({ 51, 79, 24, 16 });
+	}
 }

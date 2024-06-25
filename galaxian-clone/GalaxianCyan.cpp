@@ -11,17 +11,32 @@ GalaxianCyan::GalaxianCyan() {
 	_frame = 0;
 
 	pointsValue = 30;
+	_isHitted = false;
+	_frameDeath = 0;
 }
 
 void GalaxianCyan::updateDrawing() {
 	_frame += 0.02;
 
-	if (_frame >= 3) { //3 porq son 3 frames de mi imagen
-		_frame = 0;
+	if (!_isHitted) {
+		if (_frame >= 3) { //3 porq son 3 frames de mi imagen
+			_frame = 0;
+		}
+
+		if (_frame < 1) _sprite.setTextureRect({ 4, 61, 12, 8 });
+		if (_frame >= 1 && _frame <= 2) _sprite.setTextureRect({ 21, 61, 12, 8 });
+		if (_frame >= 2 && _frame <= 3) _sprite.setTextureRect({ 38, 61, 12, 8 });
 	}
 
-	//_sprite.setTextureRect({ 4 + int(_frame) * 12, 62, 12, 7 });
-	if (_frame < 1) _sprite.setTextureRect({ 4, 61, 12, 8 });
-	if (_frame >= 1 && _frame <= 2) _sprite.setTextureRect({ 21, 61, 12, 8 });
-	if (_frame >= 2 && _frame <= 3) _sprite.setTextureRect({ 38, 61, 12, 8 });
+	if (_isHitted) {
+		_frameDeath += 0.02f;
+
+		if (_frameDeath >= 0.26f) {
+			this->remove = true;
+		}
+
+		if (_frameDeath < 0.1f) _sprite.setTextureRect({ 3, 79, 19, 16 });
+		if (_frameDeath >= 0.1f && _frameDeath <= 0.2f) _sprite.setTextureRect({ 29, 79, 19, 16 });
+		if (_frameDeath >= 0.2f && _frameDeath <= 0.26f) _sprite.setTextureRect({ 51, 79, 24, 16 });
+	}
 }

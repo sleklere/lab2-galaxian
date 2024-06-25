@@ -11,9 +11,21 @@ GalaxianCommander::GalaxianCommander() {
 
 	_sprite.setPosition(400, 100);
 	pointsValue = 60;
+	_isHitted = false;
+	_frameDeath = 0;
 }
 
 void GalaxianCommander::updateDrawing()
 {
-	//
+	if (_isHitted) {
+		_frameDeath += 0.02f;
+
+		if (_frameDeath >= 0.26f) {
+			this->remove = true;
+		}
+
+		if (_frameDeath < 0.1f) _sprite.setTextureRect({ 3, 79, 19, 16 });
+		if (_frameDeath >= 0.1f && _frameDeath <= 0.2f) _sprite.setTextureRect({ 29, 79, 19, 16 });
+		if (_frameDeath >= 0.2f && _frameDeath <= 0.26f) _sprite.setTextureRect({ 51, 79, 24, 16 });
+	}
 }

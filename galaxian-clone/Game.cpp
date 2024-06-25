@@ -37,9 +37,11 @@ Game::Game() : enemiesGrid(3, 6)
 	backgroundSprite2.setPosition(0, -static_cast<float>(backgroundTexture.getSize().y) * scaleY); //static_cast<float> previene error de tipos sin signo
 
 	backgroundSpeed = 100.f;
+
+	time = 0; //////////
 }
 
-void Game::update(sf::RenderWindow& window, float deltaTime, Menu& menu, FilesManager<Score> scoresFile, int highScore)
+void Game::update(sf::RenderWindow& window, float deltaTime, Menu& menu, FilesManager<Score> scoresFile, int highScore, GameOver& gameOver)
 {
 
 	backgroundSprite1.move(0, backgroundSpeed * deltaTime);
@@ -57,12 +59,34 @@ void Game::update(sf::RenderWindow& window, float deltaTime, Menu& menu, FilesMa
 
 	enemiesGrid.moveLaterally();
 
+	int amountEnemies = enemiesGrid.getAmountEnemies();
+	int cont = 0;
+	int randomNum = rand() % amountEnemies;
+	int randomTime = 2 + rand() % 6;
+	time += deltaTime;
+
 	for (auto& row : enemiesGrid.getCells()) {
 
 		for (auto& enemy : row)
 		{
 			if (enemy != nullptr) {
-				enemy->update(deltaTime, enemyProjectiles);
+				enemy->update(deltaTime, enemyProjectiles, player.getPosition());
+				enemy->updateDrawing();
+
+				//si un enemigo colisiona con el jugador
+				if (enemy->isCollision(player) && !player._isHitted)
+				{
+					player.setLives(player.getLives() - 1);
+					player._isHitted = true;
+					enemy->_isHitted = true;
+				}
+				
+				//enemigo al azar ataca
+				if (cont == randomNum && time >= randomTime) {
+					enemy->_attacking = true;
+					time = 0;
+				}
+				cont++;
 			}
 
 			for (Projectile& projectile : enemyProjectiles)
@@ -103,7 +127,8 @@ void Game::update(sf::RenderWindow& window, float deltaTime, Menu& menu, FilesMa
 				{
 					score.addPoints(enemy->pointsValue);
 					projectile.remove = true;
-					enemy->remove = true;
+					enemy->_isHitted = true;
+					//enemy->remove = true;
 				}
 			}
 
@@ -145,11 +170,14 @@ void Game::update(sf::RenderWindow& window, float deltaTime, Menu& menu, FilesMa
 		std::cout << "score points: " << score.getPoints() << std::endl;
 
 		scoresFile.write(score);
-		std::cout << "Menu active: " << menu.getActive() << std::endl;
-		menu.setActive(true);
 
-		// TODO: PANTALLA GAME OVER
+		// pantalla game over
+		gameOver.setFinalScore(score.getPoints());
+		gameOver.setActive(true);
+
+		//reset
 		this->reset();
+
 	}
 
 	/* ---------------------------------------------------------------------- */

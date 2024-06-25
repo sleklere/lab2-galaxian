@@ -1,0 +1,4 @@
+﻿  Enemy.cpp
+C:\Users\Usuario\Desktop\galaxian\galaxian-clone\Enemy.cpp(15,19): warning C4305: '=': truncation from 'double' to 'float'
+C:\Users\Usuario\Desktop\galaxian\galaxian-clone\Enemy.cpp(37,18): warning C4305: '+=': truncation from 'double' to 'float'
+  galaxian-clone.vcxproj -> C:\Users\Usuario\Desktop\galaxian\galaxian-clone\x64\Debug\galaxian-clone.exe

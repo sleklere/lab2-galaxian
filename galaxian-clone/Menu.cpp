@@ -47,7 +47,6 @@ void Menu::update(sf::RenderWindow& window) {
 			_active = false;
 			cursor.loadFromSystem(sf::Cursor::Arrow);
 			window.setMouseCursor(cursor);
-			//window.setMouseCursorVisible(false);
 		}
 	}
 	if (_scoreboardText.getGlobalBounds().contains(mousePositionCoords))

@@ -140,6 +140,7 @@
     <ClCompile Include="GalaxianRed.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="GameOver.cpp" />
     <ClCompile Include="Grid.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Menu.cpp" />
@@ -158,6 +159,7 @@
     <ClInclude Include="GalaxianRed.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="GameOver.h" />
     <ClInclude Include="Globals.h" />
     <ClInclude Include="Grid.h" />
     <ClInclude Include="Menu.h" />

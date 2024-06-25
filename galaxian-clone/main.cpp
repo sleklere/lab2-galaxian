@@ -5,6 +5,7 @@
 #include "Scoreboard.h"
 #include "FilesManager.h"
 #include "Score.h"
+#include "GameOver.h"
 #include <iostream>
 
 int main()
@@ -15,6 +16,7 @@ int main()
     Menu menu;
     Game game;
     Scoreboard scoreboard;
+    GameOver gameOver;
     FilesManager<Score> scoresFile("scores.dat");
 
     int numSavedScores = scoresFile.countEntries();
@@ -52,6 +54,7 @@ int main()
             }
         }
 
+
         //float deltaTime = clock.restart().asSeconds();
         float deltaTime = 0.015f;
 
@@ -59,16 +62,20 @@ int main()
             menu.update(window);
         }
 
-        if(!menu.getActive()) {
+        if(!menu.getActive() && !gameOver.getActive()) {
             switch (menu.getChoice()) {
                 case 1:
                     // TODO: player username
-                     game.update(window, deltaTime, menu, scoresFile, highScore);
+                     game.update(window, deltaTime, menu, scoresFile, highScore, gameOver);
                     break;
                 case 2:
                      scoreboard.update(window, menu);
                     break;
             }
+        }
+
+        if (gameOver.getActive() && !menu.getActive()) {
+            gameOver.update(window, menu, deltaTime);
         }
 
         //DISPLAY
