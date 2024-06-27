@@ -18,6 +18,7 @@ int main()
     Scoreboard scoreboard;
     GameOver gameOver;
     FilesManager<Score> scoresFile("scores.dat");
+    //Score scoreEntry;
 
     int numSavedScores = scoresFile.countEntries();
 
@@ -59,7 +60,7 @@ int main()
         float deltaTime = 0.015f;
 
         if (menu.getActive()) {
-            menu.update(window);
+            menu.update(window, deltaTime);
         }
 
         if(!menu.getActive() && !gameOver.getActive()) {
@@ -69,7 +70,7 @@ int main()
                      game.update(window, deltaTime, menu, scoresFile, highScore, gameOver);
                     break;
                 case 2:
-                     scoreboard.update(window, menu);
+                     scoreboard.update(window, menu, scoresFile, deltaTime);
                     break;
             }
         }

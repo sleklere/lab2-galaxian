@@ -43,6 +43,7 @@ Grid::Grid(int rows, int cols) {
 				if (j % 2 == 0) {
 					_cells[i][j]->getSprite().setPosition(gridMarginLeft + spriteWidth + (j + 1) * xSpacing, (100.f + spriteHeight + (i + 1) * ySpacing) + 4);
 					_cells[i][j]->_evenColumn = true;
+					_cells[i][j]->_frame = 1; //para q no hagan la animacion todos al mismo tiempo
 				}
 				else {
 					_cells[i][j]->getSprite().setPosition(gridMarginLeft + spriteWidth + (j + 1) * xSpacing, 100.f + spriteHeight + (i + 1) * ySpacing);

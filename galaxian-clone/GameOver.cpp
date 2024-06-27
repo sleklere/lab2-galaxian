@@ -8,7 +8,7 @@ GameOver::GameOver() {
 	_titleText.setFont(_font);
 	_titleText.setString("GAME OVER");
 	_titleText.setCharacterSize(50);
-	_titleText.setPosition(W_WIDTH / 2 - _titleText.getGlobalBounds().width / 2, W_HEIGHT / 2 - (_titleText.getGlobalBounds().height + _scoreText.getGlobalBounds().height));
+	_titleText.setPosition(W_WIDTH / 2 - _titleText.getGlobalBounds().width / 2, W_HEIGHT / 2 - (_titleText.getGlobalBounds().height ));
 	_titleText.setFillColor(sf::Color::Red);
 
 	_scoreText.setFont(_font);
@@ -23,23 +23,11 @@ GameOver::GameOver() {
 	_exitText.setString("Exit");
 	_exitText.setCharacterSize(35);
 	_exitText.setPosition(W_WIDTH / 2 - _exitText.getGlobalBounds().width / 2, _menuText.getPosition().y + 60);
-
-	backgroundTexture.loadFromFile("background.png");
-
-	float scaleY = static_cast<float>(W_HEIGHT) / backgroundTexture.getSize().y;
-
-	backgroundSprite1.setTexture(backgroundTexture);
-	backgroundSprite2.setTexture(backgroundTexture);
-
-	// el segundo fondo va justo abajo del primero
-	backgroundSprite1.setPosition(0, 0);
-	backgroundSprite2.setPosition(0, -static_cast<float>(backgroundTexture.getSize().y) * scaleY); //static_cast<float> previene error de tipos sin signo
-
-	backgroundSpeed = 100.f;
 }
 
 void GameOver::update(sf::RenderWindow& window, Menu& menu, float deltaTime)
 {
+	Screen::update(window, deltaTime);
 	sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
 	sf::Vector2f mousePositionCoords = window.mapPixelToCoords(mousePosition);
 
@@ -77,20 +65,6 @@ void GameOver::update(sf::RenderWindow& window, Menu& menu, float deltaTime)
 		}
 	}
 
-	backgroundSprite1.move(0, backgroundSpeed * deltaTime);
-	backgroundSprite2.move(0, backgroundSpeed * deltaTime);
-
-	// se 'envuelven' los fondos para que el scroll sea infinito
-	if (backgroundSprite1.getPosition().y >= backgroundTexture.getSize().y * backgroundSprite1.getScale().y) {
-		backgroundSprite1.setPosition(0, backgroundSprite2.getPosition().y - backgroundTexture.getSize().y * backgroundSprite1.getScale().y);
-	}
-	if (backgroundSprite2.getPosition().y >= backgroundTexture.getSize().y * backgroundSprite2.getScale().y) {
-		backgroundSprite2.setPosition(0, backgroundSprite1.getPosition().y - backgroundTexture.getSize().y * backgroundSprite2.getScale().y);
-	}
-
-
-	window.draw(backgroundSprite1);
-	window.draw(backgroundSprite2);
 	window.draw(_titleText);
 	window.draw(_scoreText);
 	window.draw(_menuText);

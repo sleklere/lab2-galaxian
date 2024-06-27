@@ -7,13 +7,13 @@ class Enemy : public GameObject
 {
 protected:
 	sf::Vector2f _speed;
-	float _frame;
 	float _frameDeath;
 	int _facingDirection = 1;
 	float _shootCoolDown;
 	float _timeSinceLastShot;
 	float _moving;
 public:
+	float _frame;
 	Enemy();
 	void update(float deltaTime, std::vector<Projectile>& projectiles, sf::Vector2f playerPosition) override;
 	sf::FloatRect getBounds() const override;

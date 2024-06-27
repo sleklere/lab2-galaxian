@@ -14,8 +14,9 @@
 #include "Score.h"
 #include "Menu.h"
 #include "GameOver.h"
+#include "Screen.h"
 
-class Game
+class Game: public Screen
 {
 private:
     Player player;
@@ -32,8 +33,7 @@ private:
     sf::Sprite backgroundSprite1;
     sf::Sprite backgroundSprite2;
     float backgroundSpeed;
-
-    float time; ////////////
+    float time; 
 public:
     sf::Texture generalTexture;
 	Game();

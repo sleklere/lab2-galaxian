@@ -5,7 +5,7 @@
 
 class Score {
 private:
-	int _points = 0;
+	int _points;
 	time_t _date;
 	char _playerName[30];
 public:

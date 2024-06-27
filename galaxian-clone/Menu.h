@@ -1,7 +1,8 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include "Screen.h"
 
-class Menu
+class Menu: public Screen
 {
 private:
 	sf::Font _font;
@@ -13,7 +14,7 @@ private:
 	int _choice;
 public:
 	Menu();
-	void update(sf::RenderWindow& window);
+	void update(sf::RenderWindow& window, float deltaTime);
 	int getChoice();
 	bool getActive();
 	void setActive(bool active);

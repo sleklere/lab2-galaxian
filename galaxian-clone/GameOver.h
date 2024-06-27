@@ -2,8 +2,9 @@
 #include <SFML/Graphics.hpp>
 #include "Menu.h"
 #include "Globals.h"
+#include "Screen.h"
 
-class GameOver
+class GameOver: public Screen
 {
 private:
 	sf::Font _font;
@@ -12,10 +13,6 @@ private:
 	sf::Text _exitText;
 	sf::Text _scoreText;
 	bool _active;
-	sf::Texture backgroundTexture;
-	sf::Sprite backgroundSprite1;
-	sf::Sprite backgroundSprite2;
-	float backgroundSpeed;
 	int _finalScore;
 public:
 	GameOver();

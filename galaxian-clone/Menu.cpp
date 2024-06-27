@@ -8,24 +8,29 @@ Menu::Menu()
 	_titleText.setFont(_font);
 	_titleText.setString("Galaxian");
 	_titleText.setFillColor(sf::Color::Cyan);
-	_titleText.setLetterSpacing(2);
-	_titleText.setCharacterSize(40);
-	_titleText.setPosition(1280 / 2 - _titleText.getGlobalBounds().width / 2, 80);
+	_titleText.setLetterSpacing(4);
+	_titleText.setCharacterSize(60);
+	_titleText.setPosition(1280 / 2 - _titleText.getGlobalBounds().width / 2, 100);
 
 	_playText.setFont(_font);
 	_playText.setString("Play");
-	_playText.setPosition(100, 250);
+	_playText.setCharacterSize(35);
+	_playText.setPosition(1280 / 2 - _playText.getGlobalBounds().width / 2, 275);
 
 	_scoreboardText.setFont(_font);
 	_scoreboardText.setString("Scoreboard");
-	_scoreboardText.setPosition(100, 350);
+	_scoreboardText.setCharacterSize(35);
+	_scoreboardText.setPosition(1280 / 2 - _scoreboardText.getGlobalBounds().width / 2, 375);
 
 	_exitText.setFont(_font);
 	_exitText.setString("Exit");
-	_exitText.setPosition(100, 450);
+	_exitText.setCharacterSize(35);
+	_exitText.setPosition(1280 / 2 - _exitText.getGlobalBounds().width / 2, 475);
 }
 
-void Menu::update(sf::RenderWindow& window) {
+void Menu::update(sf::RenderWindow& window, float deltaTime) {
+	Screen::update(window, deltaTime);
+
 	sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
 	sf::Vector2f mousePositionCoords = window.mapPixelToCoords(mousePosition);
 

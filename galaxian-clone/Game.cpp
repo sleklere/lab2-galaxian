@@ -9,7 +9,6 @@ Game::Game() : enemiesGrid(3, 6)
 	pointsText.setFont(font);
 	highScoreText.setFont(font);
 	highScoreText.setPosition(W_WIDTH / 2.f, 10.f);
-	score.setPlayerName("testPlayer");
 	pointsText.setFillColor(sf::Color::Red);
 	highScoreText.setFillColor(sf::Color::Red);
 	generalTexture.loadFromFile("sprites-sheet.png");
@@ -25,35 +24,12 @@ Game::Game() : enemiesGrid(3, 6)
 
 	}
 
-	backgroundTexture.loadFromFile("background.png");
-
-	float scaleY = static_cast<float>(W_HEIGHT) / backgroundTexture.getSize().y;
-
-	backgroundSprite1.setTexture(backgroundTexture);
-	backgroundSprite2.setTexture(backgroundTexture);
-
-	// el segundo fondo va justo abajo del primero
-	backgroundSprite1.setPosition(0, 0);
-	backgroundSprite2.setPosition(0, -static_cast<float>(backgroundTexture.getSize().y) * scaleY); //static_cast<float> previene error de tipos sin signo
-
-	backgroundSpeed = 100.f;
-
-	time = 0; //////////
+	time = 0; 
 }
 
 void Game::update(sf::RenderWindow& window, float deltaTime, Menu& menu, FilesManager<Score> scoresFile, int highScore, GameOver& gameOver)
 {
-
-	backgroundSprite1.move(0, backgroundSpeed * deltaTime);
-	backgroundSprite2.move(0, backgroundSpeed * deltaTime);
-
-	// se 'envuelven' los fondos para que el scroll sea infinito
-	if (backgroundSprite1.getPosition().y >= backgroundTexture.getSize().y * backgroundSprite1.getScale().y) {
-		backgroundSprite1.setPosition(0, backgroundSprite2.getPosition().y - backgroundTexture.getSize().y * backgroundSprite1.getScale().y);
-	}
-	if (backgroundSprite2.getPosition().y >= backgroundTexture.getSize().y * backgroundSprite2.getScale().y) {
-		backgroundSprite2.setPosition(0, backgroundSprite1.getPosition().y - backgroundTexture.getSize().y * backgroundSprite2.getScale().y);
-	}
+	Screen::update(window, deltaTime);
 
 	player.update(deltaTime, playerProjectiles);
 
@@ -183,10 +159,6 @@ void Game::update(sf::RenderWindow& window, float deltaTime, Menu& menu, FilesMa
 	/* ---------------------------------------------------------------------- */
 	//                                 DRAW                                   //
 	/* ---------------------------------------------------------------------- */
-
-	// importante que se dibuje primero el fondo
-	window.draw(backgroundSprite1);
-	window.draw(backgroundSprite2);
 
 	for (const auto& projectile : enemyProjectiles) {
 		window.draw(projectile, sf::RenderStates::Default);

@@ -148,6 +148,7 @@
     <ClCompile Include="Projectile.cpp" />
     <ClCompile Include="Score.cpp" />
     <ClCompile Include="Scoreboard.cpp" />
+    <ClCompile Include="Screen.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Collisionable.h" />
@@ -167,6 +168,7 @@
     <ClInclude Include="Projectile.h" />
     <ClInclude Include="Score.h" />
     <ClInclude Include="Scoreboard.h" />
+    <ClInclude Include="Screen.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
