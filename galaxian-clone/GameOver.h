@@ -12,12 +12,15 @@ private:
 	sf::Text _menuText;
 	sf::Text _exitText;
 	sf::Text _scoreText;
+	sf::Text _roundText;
 	bool _active;
 	int _finalScore;
+	int _round;
 public:
 	GameOver();
 	void update(sf::RenderWindow& window, Menu& menu, float deltaTime);
 	bool getActive();
 	void setActive(bool active);
 	void setFinalScore(int finalScore);
+	void setRound(int round);
 };

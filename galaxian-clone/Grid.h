@@ -16,6 +16,7 @@ public:
     void moveLaterally();
     std::vector<std::vector<std::unique_ptr<Enemy>>>& getCells();
     int getAmountEnemies();
+    void setAmountEnemies(int amountEnemies);
 };
 
 

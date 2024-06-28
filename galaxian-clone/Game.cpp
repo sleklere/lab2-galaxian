@@ -2,6 +2,7 @@
 #include "FilesManager.h"
 #include "Score.h"
 #include "Menu.h"
+#include <vector>
 
 Game::Game() : enemiesGrid(3, 6)
 {
@@ -14,17 +15,27 @@ Game::Game() : enemiesGrid(3, 6)
 	generalTexture.loadFromFile("sprites-sheet.png");
 
 	float livesPadding = 10.f;
-
 	for (int i = 0; i < 3; i++) {
 		lifeSprites[i].setTexture(generalTexture);
 		sf::IntRect textureRect(3, 35, 12, 15); // player ship
 		lifeSprites[i].setTextureRect(textureRect);
 		lifeSprites[i].setScale(2.f, 2.f);
 		lifeSprites[i].setPosition(static_cast<float>(i) * 40.f + livesPadding, W_HEIGHT - lifeSprites[i].getGlobalBounds().height - livesPadding);
-
 	}
 
-	time = 0; 
+	_roundsText.setFont(font);
+	_roundsText.setString("01");
+	_roundsText.setPosition(W_WIDTH - (_roundsText.getGlobalBounds().width + 10), 10);
+	
+	_textureFlag.loadFromFile("sprites-sheet.png");
+	_spriteFlag.setTexture(_textureFlag);
+	_spriteFlag.setTextureRect(sf::IntRect(18, 37, 8, 14));
+	_spriteFlag.setPosition(W_WIDTH - (_roundsText.getGlobalBounds().width + 10) - (_spriteFlag.getGlobalBounds().width + 20), 10);
+	_spriteFlag.setScale(2.5, 2.5);
+
+	rounds = 1;
+
+	time = 0; //tiempo para q un enemigo ataque
 }
 
 void Game::update(sf::RenderWindow& window, float deltaTime, Menu& menu, FilesManager<Score> scoresFile, int highScore, GameOver& gameOver)
@@ -37,7 +48,7 @@ void Game::update(sf::RenderWindow& window, float deltaTime, Menu& menu, FilesMa
 
 	int amountEnemies = enemiesGrid.getAmountEnemies();
 	int cont = 0;
-	int randomNum = rand() % amountEnemies;
+	int randomNum = amountEnemies ? rand() % amountEnemies : 0;
 	int randomTime = 2 + rand() % 6;
 	time += deltaTime;
 
@@ -57,12 +68,17 @@ void Game::update(sf::RenderWindow& window, float deltaTime, Menu& menu, FilesMa
 					enemy->_isHitted = true;
 				}
 				
-				//enemigo al azar ataca
+					//enemigo al azar ataca
 				if (cont == randomNum && time >= randomTime) {
 					enemy->_attacking = true;
 					time = 0;
 				}
 				cont++;
+
+				if (enemy->remove) {
+					amountEnemies--;
+					enemiesGrid.setAmountEnemies(amountEnemies);
+				}
 			}
 
 			for (Projectile& projectile : enemyProjectiles)
@@ -82,6 +98,7 @@ void Game::update(sf::RenderWindow& window, float deltaTime, Menu& menu, FilesMa
 				}
 
 			}
+
 		}
 
 	}
@@ -99,12 +116,13 @@ void Game::update(sf::RenderWindow& window, float deltaTime, Menu& menu, FilesMa
 		{
 			for (auto& enemy : row) {
 
-				if (projectile.isCollision(*enemy))
-				{
-					score.addPoints(enemy->pointsValue);
-					projectile.remove = true;
-					enemy->_isHitted = true;
-					//enemy->remove = true;
+				if (enemy != nullptr) {
+					if (projectile.isCollision(*enemy))
+					{
+						score.addPoints(enemy->pointsValue);
+						projectile.remove = true;
+						enemy->_isHitted = true;
+					}
 				}
 			}
 
@@ -116,6 +134,7 @@ void Game::update(sf::RenderWindow& window, float deltaTime, Menu& menu, FilesMa
 		std::remove_if(playerProjectiles.begin(), playerProjectiles.end(),
 			[](const Projectile& p) { return p.remove; }),
 		playerProjectiles.end());
+
 	enemyProjectiles.erase(
 		std::remove_if(enemyProjectiles.begin(), enemyProjectiles.end(),
 			[](const Projectile& p) { return p.remove; }),
@@ -140,20 +159,39 @@ void Game::update(sf::RenderWindow& window, float deltaTime, Menu& menu, FilesMa
 
 	highScoreText.setPosition(W_WIDTH / 2.f - highScoreText.getGlobalBounds().width, 10.f);
 
-	// end game
-	if (player.getLives() == 0) {
-		std::cout << "juego finalizado" << std::endl;
-		std::cout << "score points: " << score.getPoints() << std::endl;
+	
+	/* ---------------------------------------------------------------------- */
+	//                              NEXT ROUND                                //
+	/* ---------------------------------------------------------------------- */
+	
+	//std::cout << enemiesGrid.getAmountEnemies() << std::endl;
+	if (enemiesGrid.getAmountEnemies() == 0) {
+		enemiesGrid = Grid(3, 6);
+		rounds++;
 
+		if (rounds < 10) {
+			_roundsText.setString("0" + std::to_string(rounds));
+		}
+		else {
+			_roundsText.setString(std::to_string(rounds));
+		}
+	}
+
+	/* ---------------------------------------------------------------------- */
+	//                                END GAME                                //
+	/* ---------------------------------------------------------------------- */
+	
+	if (player.getLives() == 0) {
+		//creo el registro con fecha y score del player
 		scoresFile.write(score);
 
 		// pantalla game over
 		gameOver.setFinalScore(score.getPoints());
+		gameOver.setRound(rounds);
 		gameOver.setActive(true);
 
 		//reset
 		this->reset();
-
 	}
 
 	/* ---------------------------------------------------------------------- */
@@ -175,7 +213,8 @@ void Game::update(sf::RenderWindow& window, float deltaTime, Menu& menu, FilesMa
 	}
 	window.draw(pointsText);
 	window.draw(highScoreText);
-
+	window.draw(_spriteFlag);
+	window.draw(_roundsText);
 }
 
 void Game::reset()

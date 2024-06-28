@@ -8,16 +8,21 @@ GameOver::GameOver() {
 	_titleText.setFont(_font);
 	_titleText.setString("GAME OVER");
 	_titleText.setCharacterSize(50);
-	_titleText.setPosition(W_WIDTH / 2 - _titleText.getGlobalBounds().width / 2, W_HEIGHT / 2 - (_titleText.getGlobalBounds().height ));
+	_titleText.setPosition(W_WIDTH / 2 - _titleText.getGlobalBounds().width / 2, 200);
 	_titleText.setFillColor(sf::Color::Red);
 
 	_scoreText.setFont(_font);
 	_scoreText.setCharacterSize(25);
+	_scoreText.setFillColor(sf::Color::Cyan);
+
+	_roundText.setFont(_font);
+	_roundText.setCharacterSize(25);
+	_roundText.setFillColor(sf::Color::Cyan);
 
 	_menuText.setFont(_font);
 	_menuText.setString("Menu");
 	_menuText.setCharacterSize(35);
-	_menuText.setPosition(W_WIDTH / 2 - _menuText.getGlobalBounds().width / 2, _titleText.getPosition().y + 120);
+	_menuText.setPosition(W_WIDTH / 2 - _menuText.getGlobalBounds().width / 2, _titleText.getPosition().y + 200);
 
 	_exitText.setFont(_font);
 	_exitText.setString("Exit");
@@ -38,8 +43,11 @@ void GameOver::update(sf::RenderWindow& window, Menu& menu, float deltaTime)
 	_menuText.setFillColor(sf::Color::White);
 	_exitText.setFillColor(sf::Color::White);
 
-	_scoreText.setString("YOUR SCORE: " + std::to_string(_finalScore));
-	_scoreText.setPosition(W_WIDTH / 2 - _scoreText.getGlobalBounds().width / 2, _titleText.getPosition().y + 60); //pongo la pos aca pq sino no me toma bien el tamaño de scoreText
+	_scoreText.setString("SCORE: " + std::to_string(_finalScore));
+	_scoreText.setPosition(W_WIDTH / 2 - _scoreText.getGlobalBounds().width / 2, /*_titleText.getPosition().y + 60*/ 290); //pongo la pos aca pq sino no me toma bien el tamaño de scoreText
+
+	_roundText.setString("ROUND: " + std::to_string(_round));
+	_roundText.setPosition(W_WIDTH / 2 - _roundText.getGlobalBounds().width / 2, 330);
 
 	if (_menuText.getGlobalBounds().contains(mousePositionCoords))
 	{
@@ -67,6 +75,7 @@ void GameOver::update(sf::RenderWindow& window, Menu& menu, float deltaTime)
 
 	window.draw(_titleText);
 	window.draw(_scoreText);
+	window.draw(_roundText);
 	window.draw(_menuText);
 	window.draw(_exitText);
 }
@@ -83,4 +92,9 @@ void GameOver::setActive(bool active) {
 void GameOver::setFinalScore(int finalScore)
 {
 	_finalScore = finalScore;
+}
+
+void GameOver::setRound(int round)
+{
+	_round = round;
 }

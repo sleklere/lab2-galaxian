@@ -15,6 +15,7 @@
 #include "Menu.h"
 #include "GameOver.h"
 #include "Screen.h"
+#include "Round.h"
 
 class Game: public Screen
 {
@@ -29,11 +30,11 @@ private:
     sf::Text highScoreText;
     sf::Sprite lifeSprites[3];
     Score score;
-    sf::Texture backgroundTexture;
-    sf::Sprite backgroundSprite1;
-    sf::Sprite backgroundSprite2;
-    float backgroundSpeed;
+    sf::Sprite _spriteFlag;
+    sf::Texture _textureFlag;
+    sf::Text _roundsText;
     float time; 
+    int rounds;
 public:
     sf::Texture generalTexture;
 	Game();

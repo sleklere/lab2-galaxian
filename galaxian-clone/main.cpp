@@ -18,7 +18,6 @@ int main()
     Scoreboard scoreboard;
     GameOver gameOver;
     FilesManager<Score> scoresFile("scores.dat");
-    //Score scoreEntry;
 
     int numSavedScores = scoresFile.countEntries();
 

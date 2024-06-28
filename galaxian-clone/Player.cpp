@@ -26,36 +26,29 @@ void Player::update(float deltaTime, std::vector<Projectile>& projectiles)
 {   
     _speed = { 0, 0 };
 
-   /* if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
-        _speed.y = -MOVEMENT_SPEED;
-    }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
-        _speed.y = MOVEMENT_SPEED;
-    }*/
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
-        _speed.x = -MOVEMENT_SPEED;
-    }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-        _speed.x = MOVEMENT_SPEED;
-    }
+    if (!_isHitted) { //si fue impactado por misil enemigo no se puede mover mientras animacion
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
+            _speed.x = -MOVEMENT_SPEED;
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
+            _speed.x = MOVEMENT_SPEED;
+        }
 
-    if (_timeSinceLastShot < _shootCoolDown) {
-        _timeSinceLastShot += deltaTime;
-    }
+        if (_timeSinceLastShot < _shootCoolDown) {
+            _timeSinceLastShot += deltaTime;
+        }
 
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)
-        && _timeSinceLastShot >= _shootCoolDown) {
-        shoot(projectiles);
-    }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)
+            && _timeSinceLastShot >= _shootCoolDown) {
+            shoot(projectiles);
+        }
 
-    if (!_isHitted) {
-        _sprite.move(_speed);
-        _fixedProjectileSprite.setPosition(_sprite.getPosition().x, _sprite.getGlobalBounds().top - _fixedProjectileSprite.getGlobalBounds().height);
-        _fixedProjectileSprite.move(0.f, 1.f);
+        if (!_isHitted) {
+            _sprite.move(_speed);
+            _fixedProjectileSprite.setPosition(_sprite.getPosition().x, _sprite.getGlobalBounds().top - _fixedProjectileSprite.getGlobalBounds().height);
+            _fixedProjectileSprite.move(0.f, 1.f);
+        }
     }
-    /*float angle = std::atan2(_speed.y, _speed.x) * 180 / 3.14159265;
-    _sprite.setRotation(angle + 90);*/
-
 
     // dont allow player to go out of the screen
     if ((_sprite.getGlobalBounds().left * 2.f) < 0) {

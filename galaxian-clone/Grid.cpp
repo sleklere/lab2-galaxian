@@ -36,10 +36,7 @@ Grid::Grid(int rows, int cols) {
 				_cells[i][j] = std::make_unique<GalaxianCyan>();
 			}
 
-			std::cout << "EACH CELL SPRITE" << std::endl;
-
 			if (_cells[i][j] != nullptr) {
-				//_cells[i][j]->getSprite().setPosition(gridMarginLeft + spriteWidth + (j + 1) * xSpacing, 100.f + spriteHeight + (i + 1) * ySpacing);
 				if (j % 2 == 0) {
 					_cells[i][j]->getSprite().setPosition(gridMarginLeft + spriteWidth + (j + 1) * xSpacing, (100.f + spriteHeight + (i + 1) * ySpacing) + 4);
 					_cells[i][j]->_evenColumn = true;
@@ -92,6 +89,7 @@ void Grid::moveLaterally()
 	for (auto& row : _cells) {
 		for (auto& enemy : row) {
 			if (enemy == nullptr) continue;
+
 			float spaceRight = W_WIDTH - (enemy->getSprite().getGlobalBounds().left + 12.f * 3.f);
 			float spaceLeft = enemy->getSprite().getGlobalBounds().left;
 
@@ -129,4 +127,9 @@ std::vector<std::vector<std::unique_ptr<Enemy>>>& Grid::getCells() {
 int Grid::getAmountEnemies()
 {
 	return _amountEnemies;
+}
+
+void Grid::setAmountEnemies(int amountEnemies)
+{
+	_amountEnemies = amountEnemies;
 }
