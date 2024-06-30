@@ -102,7 +102,6 @@ std::vector<T> FilesManager<T>::top5() {
 
 	for (int i = 0; i < 5; i++) {
 		top5[i] = entries[i];
-		std::cout << top5[i].getPoints() << std::endl;
 	}
 
 	return top5;

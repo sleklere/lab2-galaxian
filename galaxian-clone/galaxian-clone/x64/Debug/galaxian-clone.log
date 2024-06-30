@@ -1,2 +1,3 @@
-﻿  GameOver.cpp
+﻿  Grid.cpp
+C:\Users\Usuario\Desktop\galaxian\galaxian-clone\Grid.cpp(57,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
   galaxian-clone.vcxproj -> C:\Users\Usuario\Desktop\galaxian\galaxian-clone\x64\Debug\galaxian-clone.exe
