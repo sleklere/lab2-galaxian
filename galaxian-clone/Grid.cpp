@@ -178,7 +178,9 @@ void Grid::moveLaterally()
 			direction.x = 2.f * xDirection;
 			direction.y = 0;
 
-			enemy->getSprite().move(direction);
+			if (!enemy->_attacking) {
+				enemy->getSprite().move(direction);
+			}
 		}
 	}
 }

@@ -81,24 +81,26 @@ void Game::update(sf::RenderWindow& window, float deltaTime, Menu& menu, FilesMa
 				}
 			}
 
-			for (Projectile& projectile : enemyProjectiles)
-			{
-				projectile.update();
 
-				if (projectile.remove)
-				{
-					continue;
-				}
+		}
 
-				if (projectile.isCollision(player) && !player._isHitted)
-				{
-					player.setLives(player.getLives() - 1);
-					player._isHitted = true;
-					projectile.remove = true;
-				}
+	}
 
-			}
 
+	for (Projectile& projectile : enemyProjectiles)
+	{
+		projectile.update();
+
+		if (projectile.remove)
+		{
+			continue;
+		}
+
+		if (projectile.isCollision(player) && !player._isHitted)
+		{
+			player.setLives(player.getLives() - 1);
+			player._isHitted = true;
+			projectile.remove = true;
 		}
 
 	}
