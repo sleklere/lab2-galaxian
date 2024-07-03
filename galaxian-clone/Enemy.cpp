@@ -22,7 +22,6 @@ void Enemy::update(float deltaTime, std::vector<Projectile>& projectiles, sf::Ve
 
 	if (!_attacking) {
 		playerPos = playerPosition; //tomo ultima posicion del player antes de atacar
-		//_sprite.setPosition(_sprite.getPosition().x, _sprite.getPosition().y + 4);
 	}
 
 	if (_attacking) {

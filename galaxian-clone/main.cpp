@@ -52,22 +52,25 @@ int main()
         float deltaTime = 0.015f;
 
         if (menu.getActive()) {
+            //muestro menu
             menu.update(window, deltaTime);
         }
 
         if(!menu.getActive() && !gameOver.getActive()) {
             switch (menu.getChoice()) {
                 case 1:
-                    // TODO: player username
+                    //muestro juego
                      game.update(window, deltaTime, menu, scoresFile, highScore, gameOver);
                     break;
                 case 2:
+                    //muestro scoreboard
                      scoreboard.update(window, menu, scoresFile, deltaTime);
                     break;
             }
         }
 
         if (gameOver.getActive() && !menu.getActive()) {
+            //muestro game over
             gameOver.update(window, menu, deltaTime);
         }
 

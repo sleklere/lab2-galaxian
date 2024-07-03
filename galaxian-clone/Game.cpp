@@ -4,23 +4,32 @@
 #include "Menu.h"
 #include <vector>
 
-Game::Game() : enemiesGrid(3, 6)
+Game::Game() : enemiesGrid(5, 10)
 {
 	font.loadFromFile("ARCADE_I.ttf");
+
 	pointsText.setFont(font);
+	pointsText.setFillColor(sf::Color::Red);
+
 	highScoreText.setFont(font);
 	highScoreText.setPosition(W_WIDTH / 2.f, 10.f);
-	pointsText.setFillColor(sf::Color::Red);
 	highScoreText.setFillColor(sf::Color::Red);
+
 	generalTexture.loadFromFile("sprites-sheet.png");
 
+	int livesPosInitial = W_WIDTH - 250;
 	float livesPadding = 10.f;
 	for (int i = 0; i < 3; i++) {
 		lifeSprites[i].setTexture(generalTexture);
 		sf::IntRect textureRect(3, 35, 12, 15); // player ship
 		lifeSprites[i].setTextureRect(textureRect);
 		lifeSprites[i].setScale(2.f, 2.f);
-		lifeSprites[i].setPosition(static_cast<float>(i) * 40.f + livesPadding, W_HEIGHT - lifeSprites[i].getGlobalBounds().height - livesPadding);
+		if (i == 0) {
+			lifeSprites[0].setPosition(livesPosInitial, 12.f);
+		}
+		else {
+			lifeSprites[i].setPosition(lifeSprites[0].getPosition().x + static_cast<float>(i) * 40.f, 12.f);
+		}
 	}
 
 	_roundsText.setFont(font);
@@ -68,7 +77,7 @@ void Game::update(sf::RenderWindow& window, float deltaTime, Menu& menu, FilesMa
 					enemy->_isHitted = true;
 				}
 				
-					//enemigo al azar ataca
+				//enemigo al azar ataca
 				if (cont == randomNum && time >= randomTime) {
 					enemy->_attacking = true;
 					time = 0;
@@ -124,6 +133,7 @@ void Game::update(sf::RenderWindow& window, float deltaTime, Menu& menu, FilesMa
 						score.addPoints(enemy->pointsValue);
 						projectile.remove = true;
 						enemy->_isHitted = true;
+						//no pongo enemy->remove = true, porq lo hago en el updateDrawing de cada enemy cuando _isHitted = true
 					}
 				}
 			}
@@ -131,7 +141,7 @@ void Game::update(sf::RenderWindow& window, float deltaTime, Menu& menu, FilesMa
 		}
 	}
 
-	//Borrar enemigos y proyectiles
+	//BORRAR ENEMIGOS Y PROYECTILES
 	playerProjectiles.erase(
 		std::remove_if(playerProjectiles.begin(), playerProjectiles.end(),
 			[](const Projectile& p) { return p.remove; }),
@@ -149,26 +159,25 @@ void Game::update(sf::RenderWindow& window, float deltaTime, Menu& menu, FilesMa
 			row.end());
 	}
 
-	////textos
+	//ACTUALIZO LOS PUNTOS DEL PLAYER EN PANTALLA
 	pointsText.setString(std::to_string(score.getPoints()));
 
+	//VEO SI EL SCORE DEL PLAYER ES MAYOR AÑ HIGHSCORE Y SI ES ASI LO CAMBIO, SINO MANTENGO
 	if (score.getPoints() > highScore) {
 		highScoreText.setString(std::to_string(score.getPoints()));
 	}
 	else {
 		highScoreText.setString(std::to_string(highScore));
 	}
-
 	highScoreText.setPosition(W_WIDTH / 2.f - highScoreText.getGlobalBounds().width, 10.f);
 
-	
+
 	/* ---------------------------------------------------------------------- */
 	//                              NEXT ROUND                                //
 	/* ---------------------------------------------------------------------- */
 	
-	std::cout << score.getPoints() << std::endl;
 	if (enemiesGrid.getAmountEnemies() == 0) {
-		enemiesGrid = Grid(3, 6);
+		enemiesGrid = Grid(5, 10);
 		rounds++;
 
 		if (rounds < 10) {
@@ -187,13 +196,12 @@ void Game::update(sf::RenderWindow& window, float deltaTime, Menu& menu, FilesMa
 		//creo el registro con fecha y score del player
 		scoresFile.write(score);
 
-		// pantalla game over
+		// GAME OVER SCREEN
 		gameOver.setFinalScore(score.getPoints());
 		gameOver.setRound(rounds);
-		menu.setActive(false);
 		gameOver.setActive(true);
 
-		//reset
+		//RESETEO VALORES
 		this->reset();
 	}
 
@@ -210,10 +218,13 @@ void Game::update(sf::RenderWindow& window, float deltaTime, Menu& menu, FilesMa
 	}
 
 	enemiesGrid.display(window, sf::RenderStates::Default);
+
 	player.draw(window, sf::RenderStates::Default);
+
 	for (int i = 0; i < player.getLives(); i++) {
 		window.draw(lifeSprites[i]);
 	}
+
 	window.draw(pointsText);
 	window.draw(highScoreText);
 	window.draw(_spriteFlag);
@@ -229,5 +240,5 @@ void Game::reset()
 	score.setPoints(0);
 	rounds = 1;
 	_roundsText.setString("0" + std::to_string(rounds));
-	enemiesGrid = Grid(3, 6);
+	enemiesGrid = Grid(5, 10);
 }

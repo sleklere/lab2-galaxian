@@ -1,4 +1,5 @@
 #include "GalaxianCyan.h"
+#include <iostream>
 
 GalaxianCyan::GalaxianCyan() {
 	_texture = std::make_unique<sf::Texture>(); // alocar la nueva textura, haciendo que sea propiedad del puntero _texture
@@ -19,7 +20,7 @@ void GalaxianCyan::updateDrawing() {
 	_frame += 0.02;
 
 	if (!_isHitted) {
-		if (_frame >= 3) { //3 porq son 3 frames de mi imagen
+		if (_frame >= 3) {
 			_frame = 0;
 		}
 

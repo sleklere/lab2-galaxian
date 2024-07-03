@@ -10,50 +10,6 @@
 #include <ctime> 
 
 Grid::Grid(int rows, int cols) {
-	//xDirection = 1.f;
-	//_rows = 5;
-	//_cols = 10;
-	//_amountEnemies = 0;
-
-	//_cells.resize(_rows);
-	//for (int i = 0; i < _rows; i++) {
-	//	_cells[i].resize(_cols);
-	//	for (int j = 0; j < _cols; j++) {
-	//		float xSpacing = 50.f;
-	//		float ySpacing = 40.f;
-	//		float spriteWidth = 12.f * 3.f; // 3 is the scale
-	//		float spriteHeight = 7.f * 3.f; // 3 is the scale
-	//		float gridMarginLeft = (W_WIDTH - (spriteWidth + xSpacing) * _cols) / 2;
-
-	//		// Create enemies based on row
-	//		if (i == 0 && (j == 3 || j == 6)) {
-	//			_cells[i][j] = std::make_unique<GalaxianCommander>();
-	//		}
-	//		else if (i == 1 && (j != 0 && j != 1 && j != 8 && j != 9)) {
-	//			_cells[i][j] = std::make_unique<GalaxianRed>();
-	//		}
-	//		else if (i == 2 && (j != 0 && j != 9)) {
-	//			_cells[i][j] = std::make_unique<GalaxianPink>();
-	//		}
-	//		else if (i == 3 || i == 4) {
-	//			_cells[i][j] = std::make_unique<GalaxianCyan>();
-	//		}
-
-	//		if (_cells[i][j] != nullptr) {
-	//			if (j % 2 == 0) {
-	//				_cells[i][j]->getSprite().setPosition(gridMarginLeft + spriteWidth + (j + 1) * xSpacing, (100.f + spriteHeight + (i + 1) * ySpacing) + 4);
-	//				_cells[i][j]->_evenColumn = true;
-	//				_cells[i][j]->_frame = 1; //para q no hagan la animacion todos al mismo tiempo
-	//			}
-	//			else {
-	//				_cells[i][j]->getSprite().setPosition(gridMarginLeft + spriteWidth + (j + 1) * xSpacing, 100.f + spriteHeight + (i + 1) * ySpacing);
-	//				_cells[i][j]->_evenColumn = false;
-	//			}
-	//			_amountEnemies++;
-	//		}
-	//	}
-	//}
-
 	srand(time(0)); 
 
 	xDirection = 1.f;

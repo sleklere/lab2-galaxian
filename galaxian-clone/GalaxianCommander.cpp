@@ -9,7 +9,6 @@ GalaxianCommander::GalaxianCommander() {
 	_sprite.setOrigin(_sprite.getGlobalBounds().width / 2, _sprite.getGlobalBounds().height);
 	_sprite.setScale(3, 3);
 
-	_sprite.setPosition(400, 100);
 	pointsValue = 60;
 	_isHitted = false;
 	_frameDeath = 0;

@@ -10,7 +10,6 @@ GalaxianRed::GalaxianRed() {
 	_sprite.setScale(3, 3);
 	_frame = 0;
 	
-	/*_sprite.setPosition(200, 388);*/
 	pointsValue = 50;
 	_isHitted = false;
 	_frameDeath = 0;
@@ -20,7 +19,7 @@ void GalaxianRed::updateDrawing() {
 	_frame += 0.02;
 
 	if (!_isHitted) {
-		if (_frame >= 3) { //3 porq son 3 frames de mi imagen
+		if (_frame >= 3) { 
 			_frame = 0;
 		}
 

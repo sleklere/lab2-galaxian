@@ -10,7 +10,6 @@ GalaxianPink::GalaxianPink() {
 	_sprite.setScale(3, 3);
 	_frame = 0;
 	
-	//_sprite.setPosition(200, 420);
 	pointsValue = 40;
 	_isHitted = false;
 	_frameDeath = 0;
@@ -20,7 +19,7 @@ void GalaxianPink::updateDrawing() {
 	_frame += 0.02;
 	
 	if (!_isHitted) {
-		if (_frame >= 3) { //3 porq mi animacion de correr tiene 4 frames solo, osea 4 imgs distintas
+		if (_frame >= 3) {
 			_frame = 0;
 		}
 
