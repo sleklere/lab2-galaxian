@@ -11,9 +11,10 @@ public:
 	FilesManager(const char* fileName);
 	T read(int pos);
 	bool write(T obj);
-	int countEntries(); ////
+	int countEntries(); 
 	std::vector<T> readAll();
 	std::vector<T> top5();
+	int top5Size;
 };
 
 template <typename T>
@@ -100,7 +101,11 @@ std::vector<T> FilesManager<T>::top5() {
 		}
 	}
 
-	for (int i = 0; i < 5; i++) {
+	int numElements = entries.size() > 5 ? 5 : entries.size();
+
+	top5Size = numElements;
+
+	for (int i = 0; i < numElements; i++) {
 		top5[i] = entries[i];
 	}
 

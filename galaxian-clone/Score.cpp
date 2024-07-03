@@ -12,19 +12,9 @@ int Score::getPoints()
 	return _points;
 }
 
-const char* Score::getPlayerName()
-{
-	return _playerName;
-}
-
-void Score::setPlayerName(const char* name)
-{
-	strcpy_s(_playerName, name);
-}
-
 void Score::setPoints(int points)
 {
-	_points = points > 0 ? points : _points;;
+	_points = points;
 }
 
 void Score::addPoints(int points)
@@ -53,7 +43,6 @@ void Score::Show()
 {
 	std::cout << "+-------------------------+" << std::endl;
 	std::cout << "Player score" << std::endl;
-	//std::cout << this->getPlayerName() << std::endl;
 	std::cout << this->getDateAsString();
 	std::cout << "+-------------------------+" << std::endl;
 }

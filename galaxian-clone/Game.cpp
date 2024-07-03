@@ -166,7 +166,7 @@ void Game::update(sf::RenderWindow& window, float deltaTime, Menu& menu, FilesMa
 	//                              NEXT ROUND                                //
 	/* ---------------------------------------------------------------------- */
 	
-	//std::cout << enemiesGrid.getAmountEnemies() << std::endl;
+	std::cout << score.getPoints() << std::endl;
 	if (enemiesGrid.getAmountEnemies() == 0) {
 		enemiesGrid = Grid(3, 6);
 		rounds++;
@@ -190,6 +190,7 @@ void Game::update(sf::RenderWindow& window, float deltaTime, Menu& menu, FilesMa
 		// pantalla game over
 		gameOver.setFinalScore(score.getPoints());
 		gameOver.setRound(rounds);
+		menu.setActive(false);
 		gameOver.setActive(true);
 
 		//reset
@@ -226,5 +227,7 @@ void Game::reset()
 	player.setLives(3);
 	player.resetPosition();
 	score.setPoints(0);
+	rounds = 1;
+	_roundsText.setString("0" + std::to_string(rounds));
 	enemiesGrid = Grid(3, 6);
 }

@@ -19,29 +19,11 @@ int main()
     GameOver gameOver;
     FilesManager<Score> scoresFile("scores.dat");
 
-    int numSavedScores = scoresFile.countEntries();
-
     int highScore = 0;
 
 
-    if (numSavedScores > 0) {
-        std::cout << numSavedScores << " scores" << std::endl;
-        // get highscore
-        for (int i = 0; i < numSavedScores; i++) {
-            Score scoreEntry = scoresFile.read(i);
 
-            std::cout << "score points: " << scoreEntry.getPoints() << std::endl;
-            std::cout << "-------------" << std::endl;
-            if (scoreEntry.getPoints() > highScore) {
-                highScore = scoreEntry.getPoints();
-            }
-        }
-    }
-
-    std::cout << "high score is: " << highScore << std::endl;
-
-    while (window.isOpen())
-    {
+    while (window.isOpen()) {
         window.clear();
 
         sf::Event event;
@@ -54,6 +36,17 @@ int main()
             }
         }
 
+        //para obtener el highscore
+        int numSavedScores = scoresFile.countEntries();
+        if (numSavedScores > 0) {
+            for (int i = 0; i < numSavedScores; i++) {
+                Score scoreEntry = scoresFile.read(i);
+
+                if (scoreEntry.getPoints() > highScore) {
+                    highScore = scoreEntry.getPoints();
+                }
+            }
+        }
 
         //float deltaTime = clock.restart().asSeconds();
         float deltaTime = 0.015f;

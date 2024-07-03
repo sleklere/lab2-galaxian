@@ -15,17 +15,17 @@ Menu::Menu()
 	_playText.setFont(_font);
 	_playText.setString("Play");
 	_playText.setCharacterSize(35);
-	_playText.setPosition(1280 / 2 - _playText.getGlobalBounds().width / 2, 275);
+	_playText.setPosition(1280 / 2 - _playText.getGlobalBounds().width / 2, 265);
 
 	_scoreboardText.setFont(_font);
 	_scoreboardText.setString("Scoreboard");
 	_scoreboardText.setCharacterSize(35);
-	_scoreboardText.setPosition(1280 / 2 - _scoreboardText.getGlobalBounds().width / 2, 375);
+	_scoreboardText.setPosition(1280 / 2 - _scoreboardText.getGlobalBounds().width / 2, 365);
 
 	_exitText.setFont(_font);
 	_exitText.setString("Exit");
 	_exitText.setCharacterSize(35);
-	_exitText.setPosition(1280 / 2 - _exitText.getGlobalBounds().width / 2, 475);
+	_exitText.setPosition(1280 / 2 - _exitText.getGlobalBounds().width / 2, 465);
 }
 
 void Menu::update(sf::RenderWindow& window, float deltaTime) {
@@ -42,7 +42,7 @@ void Menu::update(sf::RenderWindow& window, float deltaTime) {
 	_scoreboardText.setFillColor(sf::Color::White);
 	_exitText.setFillColor(sf::Color::White);
 
-	if (_playText.getGlobalBounds().contains(mousePositionCoords) )
+	if (_playText.getGlobalBounds().contains(mousePositionCoords))
 	{
 		cursor.loadFromSystem(sf::Cursor::Hand);
 		window.setMouseCursor(cursor);

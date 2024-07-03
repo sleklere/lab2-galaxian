@@ -1,3 +1,17 @@
-﻿  Grid.cpp
-C:\Users\Usuario\Desktop\galaxian\galaxian-clone\Grid.cpp(57,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+﻿  Game.cpp
+C:\Users\Usuario\Desktop\galaxian\galaxian-clone\FilesManager.h(49,14): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  (compiling source file 'Game.cpp')
+  C:\Users\Usuario\Desktop\galaxian\galaxian-clone\FilesManager.h(49,14):
+  the template instantiation context (the oldest one first) is
+  	C:\Users\Usuario\Desktop\galaxian\galaxian-clone\Game.cpp(41,12):
+  	see reference to class template instantiation 'FilesManager<Score>' being compiled
+  	C:\Users\Usuario\Desktop\galaxian\galaxian-clone\FilesManager.h(44,1):
+  	while compiling class template member function 'bool FilesManager<Score>::write(T)'
+          with
+          [
+              T=Score
+          ]
+  		C:\Users\Usuario\Desktop\galaxian\galaxian-clone\Game.cpp(188,19):
+  		see the first reference to 'FilesManager<Score>::write' in 'Game::update'
+  
   galaxian-clone.vcxproj -> C:\Users\Usuario\Desktop\galaxian\galaxian-clone\x64\Debug\galaxian-clone.exe

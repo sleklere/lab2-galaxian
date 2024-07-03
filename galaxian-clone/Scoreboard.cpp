@@ -41,37 +41,48 @@ void Scoreboard::update(sf::RenderWindow& window, Menu& menu, FilesManager<Score
 		}
 	}
 
-	int posY = 250;
+	//si hay registros los muestro
+	if (scoresFile.countEntries() != 0 && scoresFile.countEntries() != -1) {
+		int posY = 250;
 
-	std::vector<Score> top5 = scoresFile.top5();
+		std::vector<Score> top5 = scoresFile.top5();
 
-	for (int i = 0; i < 5; i++) {
-		_score = top5[i];
+		for (int i = 0; i < scoresFile.top5Size; i++) {
+			_score = top5[i];
 
-		sf::Text _numberText;
-		_numberText.setFont(_font);
-		_numberText.setString(std::to_string(i + 1) + ".");
-		_numberText.setCharacterSize(25);
-		_numberText.setPosition(300, posY);
+			sf::Text _numberText;
+			_numberText.setFont(_font);
+			_numberText.setString(std::to_string(i + 1) + ".");
+			_numberText.setCharacterSize(25);
+			_numberText.setPosition(300, posY);
 
-		sf::Text _dateText;
-		_dateText.setFont(_font);
-		_dateText.setString(_score.getDateAsString());
-		_dateText.setCharacterSize(25);
-		_dateText.setPosition(1280 / 2 - _dateText.getGlobalBounds().width / 2, posY);
+			sf::Text _dateText;
+			_dateText.setFont(_font);
+			_dateText.setString(_score.getDateAsString());
+			_dateText.setCharacterSize(25);
+			_dateText.setPosition(1280 / 2 - _dateText.getGlobalBounds().width / 2, posY);
 		
-		sf::Text _scoreText;
-		_scoreText.setFont(_font);
-		_scoreText.setString(std::to_string(_score.getPoints()));
-		_scoreText.setCharacterSize(25);
-		_scoreText.setFillColor(sf::Color::Green);
-		_scoreText.setPosition(950, posY);
+			sf::Text _scoreText;
+			_scoreText.setFont(_font);
+			_scoreText.setString(std::to_string(_score.getPoints()));
+			_scoreText.setCharacterSize(25);
+			_scoreText.setFillColor(sf::Color::Green);
+			_scoreText.setPosition(950, posY);
 		
-		posY += 50;
+			posY += 50;
 
-		window.draw(_numberText);
-		window.draw(_dateText);
-		window.draw(_scoreText);
+			window.draw(_numberText);
+			window.draw(_dateText);
+			window.draw(_scoreText);
+		}
+	}
+	else {
+		sf::Text _noScoresText;
+		_noScoresText.setFont(_font);
+		_noScoresText.setString("No scores yet!");
+		_noScoresText.setCharacterSize(25);
+		_noScoresText.setPosition(W_WIDTH / 2 - _noScoresText.getGlobalBounds().width / 2, W_HEIGHT / 2 - _noScoresText.getGlobalBounds().height / 2);
+		window.draw(_noScoresText);
 	}
 
 	window.draw(_titleText);

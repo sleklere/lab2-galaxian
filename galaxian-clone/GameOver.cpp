@@ -44,7 +44,7 @@ void GameOver::update(sf::RenderWindow& window, Menu& menu, float deltaTime)
 	_exitText.setFillColor(sf::Color::White);
 
 	_scoreText.setString("SCORE: " + std::to_string(_finalScore));
-	_scoreText.setPosition(W_WIDTH / 2 - _scoreText.getGlobalBounds().width / 2, /*_titleText.getPosition().y + 60*/ 290); //pongo la pos aca pq sino no me toma bien el tamaño de scoreText
+	_scoreText.setPosition(W_WIDTH / 2 - _scoreText.getGlobalBounds().width / 2, 300); //pongo la pos aca pq sino no me toma bien el tamaño de scoreText
 
 	_roundText.setString("ROUND: " + std::to_string(_round));
 	_roundText.setPosition(W_WIDTH / 2 - _roundText.getGlobalBounds().width / 2, 330);
