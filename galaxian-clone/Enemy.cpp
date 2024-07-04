@@ -22,6 +22,7 @@ void Enemy::update(float deltaTime, std::vector<Projectile>& projectiles, sf::Ve
 
 	if (!_attacking) {
 		playerPos = playerPosition; //tomo ultima posicion del player antes de atacar
+		_enemyPosition = _sprite.getPosition();
 	}
 
 	if (_attacking) {
@@ -35,15 +36,17 @@ void Enemy::update(float deltaTime, std::vector<Projectile>& projectiles, sf::Ve
 
 		_moving += 0.05;
 		//hago la curva
-		if (_sprite.getPosition().x > W_WIDTH / 2) {
-			if (_moving <= 1) _sprite.move(-3, -3);		
+		if (_enemyPosition.x >= W_WIDTH / 2) {
+			if (_moving <= 1) _sprite.move(-3, -3);
 			if (_moving > 1 && _moving <= 2) _sprite.move(-3, 0);
 			if (_moving > 2 && _moving <= 3) _sprite.move(-3, 3);
-		} else {
+		}
+		else {
 			if (_moving <= 1) _sprite.move(3, -3);
 			if (_moving > 1 && _moving <= 2) _sprite.move(3, 0);
 			if (_moving > 2 && _moving <= 3) _sprite.move(3, 3);
 		}
+
 		//voy hasta la ultima posicion que tengo del player
 		if (_moving > 3) {
 			playerPos.y += 20;

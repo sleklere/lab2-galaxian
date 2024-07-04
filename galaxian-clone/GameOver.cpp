@@ -33,6 +33,7 @@ GameOver::GameOver() {
 void GameOver::update(sf::RenderWindow& window, Menu& menu, float deltaTime)
 {
 	Screen::update(window, deltaTime);
+
 	sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
 	sf::Vector2f mousePositionCoords = window.mapPixelToCoords(mousePosition);
 

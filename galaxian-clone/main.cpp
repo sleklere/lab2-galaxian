@@ -21,8 +21,6 @@ int main()
 
     int highScore = 0;
 
-
-
     while (window.isOpen()) {
         window.clear();
 

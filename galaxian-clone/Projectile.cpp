@@ -20,8 +20,6 @@ Projectile::Projectile(const int direction, bool isPlayer)
 	_isFire = false;
 	remove = false;
 	_sprite.setScale(2.f, 2.f);
-
-    //sf::IntRect textureRect(18, 38, 6, 12); // flag
 }
 
 void Projectile::update()
@@ -52,7 +50,3 @@ void Projectile::fire(sf::Vector2f coords, float speed)
 	_isFire = true;
 }
 
-void Projectile::impact()
-{
-	_sprite.setPosition({ -100, -100 });
-}

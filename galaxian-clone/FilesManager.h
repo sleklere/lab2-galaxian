@@ -50,8 +50,6 @@ bool FilesManager<T>::write(T obj)
 
 	fclose(p);
 
-	std::cout << "Wrote status: " << itWrote << std::endl;
-
 	return itWrote;
 }
 

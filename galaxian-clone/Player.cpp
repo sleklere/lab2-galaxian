@@ -6,16 +6,18 @@ Player::Player()
 {
 	_texture.loadFromFile("sprites-sheet.png");
 	_sprite.setTexture(_texture);
-    _fixedProjectileSprite.setTexture(_texture);
     sf::IntRect textureRect(3, 35, 12, 15); // player ship
-    sf::IntRect projectileTextureRect(73, 39, 1, 4);
     _sprite.setTextureRect(textureRect);
-    _fixedProjectileSprite.setTextureRect(projectileTextureRect);
     _sprite.setOrigin(_sprite.getGlobalBounds().width / 2, _sprite.getGlobalBounds().height);
     _sprite.setScale(2.f, 2.f);
-    _fixedProjectileSprite.setScale(2.f, 2.f);
     _sprite.setPosition(static_cast<float>(W_WIDTH) / 2, W_HEIGHT - 20);
-    _speed = { MOVEMENT_SPEED, MOVEMENT_SPEED };
+    
+    _fixedProjectileSprite.setTexture(_texture);
+    sf::IntRect projectileTextureRect(73, 39, 1, 4);
+    _fixedProjectileSprite.setTextureRect(projectileTextureRect);
+    _fixedProjectileSprite.setScale(2.f, 2.f);
+
+    //_speed = { MOVEMENT_SPEED, MOVEMENT_SPEED };
     _timeSinceLastShot = 0.f;
     _shootCoolDown = PLAYER_SHOOT_COOLDOWN;
     _frame = 0;
@@ -26,7 +28,8 @@ void Player::update(float deltaTime, std::vector<Projectile>& projectiles)
 {   
     _speed = { 0, 0 };
 
-    if (!_isHitted) { //si fue impactado por misil enemigo no se puede mover mientras animacion
+    //si fue impactado por misil enemigo no se puede mover mientras animacion
+    if (!_isHitted) { 
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
             _speed.x = -MOVEMENT_SPEED;
         }
@@ -43,16 +46,14 @@ void Player::update(float deltaTime, std::vector<Projectile>& projectiles)
             shoot(projectiles);
         }
 
-        if (!_isHitted) {
-            _sprite.move(_speed);
-            _fixedProjectileSprite.setPosition(_sprite.getPosition().x, _sprite.getGlobalBounds().top - _fixedProjectileSprite.getGlobalBounds().height);
-            _fixedProjectileSprite.move(0.f, 1.f);
-        }
+       
+        _sprite.move(_speed);
+        _fixedProjectileSprite.setPosition(_sprite.getPosition().x, _sprite.getGlobalBounds().top - _fixedProjectileSprite.getGlobalBounds().height);
+        _fixedProjectileSprite.move(0.f, 1.f);
     }
 
     // dont allow player to go out of the screen
     if ((_sprite.getGlobalBounds().left * 2.f) < 0) {
-        std::cout << "OUT OF WINDOW (LEFT)" << std::endl;
         _sprite.setPosition(_sprite.getOrigin().x * 2.f, _sprite.getPosition().y);
     }
     if (_sprite.getGlobalBounds().top * 2.f < 0) {
@@ -60,7 +61,6 @@ void Player::update(float deltaTime, std::vector<Projectile>& projectiles)
     }
 
     if (_sprite.getGlobalBounds().left + _sprite.getGlobalBounds().width > W_WIDTH) {
-        std::cout << "OUT OF WINDOW (RIGHT)" << std::endl;
         _sprite.setPosition(W_WIDTH - _sprite.getOrigin().x * 2.f, _sprite.getPosition().y);
     }
     if (_sprite.getGlobalBounds().top + _sprite.getGlobalBounds().height > W_HEIGHT) {

@@ -1,6 +1,4 @@
-﻿  GalaxianCyan.cpp
-C:\Users\Usuario\Desktop\galaxian\galaxian-clone\GalaxianCyan.cpp(20,16): warning C4305: '+=': truncation from 'double' to 'float'
-  Game.cpp
+﻿  Game.cpp
 C:\Users\Usuario\Desktop\galaxian\galaxian-clone\Game.cpp(28,31): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
 C:\Users\Usuario\Desktop\galaxian\galaxian-clone\FilesManager.h(49,14): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
   (compiling source file 'Game.cpp')
@@ -17,8 +15,25 @@ C:\Users\Usuario\Desktop\galaxian\galaxian-clone\FilesManager.h(49,14): warning 
   		C:\Users\Usuario\Desktop\galaxian\galaxian-clone\Game.cpp(197,19):
   		see the first reference to 'FilesManager<Score>::write' in 'Game::update'
   
-  Grid.cpp
-C:\Users\Usuario\Desktop\galaxian\galaxian-clone\Grid.cpp(13,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  Scoreboard.cpp
+C:\Users\Usuario\Desktop\galaxian\galaxian-clone\Scoreboard.cpp(57,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\Usuario\Desktop\galaxian\galaxian-clone\Scoreboard.cpp(63,76): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\Usuario\Desktop\galaxian\galaxian-clone\Scoreboard.cpp(70,32): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\Usuario\Desktop\galaxian\galaxian-clone\FilesManager.h(102,18): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  (compiling source file 'Scoreboard.cpp')
+  C:\Users\Usuario\Desktop\galaxian\galaxian-clone\FilesManager.h(102,18):
+  the template instantiation context (the oldest one first) is
+  	C:\Users\Usuario\Desktop\galaxian\galaxian-clone\Scoreboard.cpp(19,18):
+  	see reference to class template instantiation 'FilesManager<Score>' being compiled
+  	C:\Users\Usuario\Desktop\galaxian\galaxian-clone\FilesManager.h(87,40):
+  	while compiling class template member function 'std::vector<T,std::allocator<T>> FilesManager<T>::top5(void)'
+          with
+          [
+              T=Score
+          ]
+  		C:\Users\Usuario\Desktop\galaxian\galaxian-clone\Scoreboard.cpp(48,27):
+  		see the first reference to 'FilesManager<Score>::top5' in 'Scoreboard::update'
+  
   main.cpp
   Generating Code...
   galaxian-clone.vcxproj -> C:\Users\Usuario\Desktop\galaxian\galaxian-clone\x64\Debug\galaxian-clone.exe

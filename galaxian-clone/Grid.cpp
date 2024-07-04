@@ -29,7 +29,6 @@ Grid::Grid(int rows, int cols) {
 				float spriteWidth = 12.f * 3.f; // 3 es la escala
 				float spriteHeight = 7.f * 3.f; // 3 es la escala
 				float gridMarginLeft = (W_WIDTH - (spriteWidth + xSpacing) * _cols) / 2;
-
 				
 				// crear enemigos basados en la row
 				if (i == 0 && (j == 2 || j == 4 || j == 5 || j == 7)) {
