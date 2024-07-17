@@ -16,6 +16,9 @@ private:
 	int _facingDirection = -1;
 	int _lives = 3;
 	float _frame;
+	bool _powerUp;
+	float _powerUpTimer;
+	float _powerUpDuration;
 
 public:
 	Player();
@@ -28,4 +31,5 @@ public:
 	bool _isHitted;
 	void resetPosition();
 	sf::Vector2f getPosition();
+	void setPowerUp(bool powerUp);
 };

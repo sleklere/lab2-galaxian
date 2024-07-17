@@ -3,6 +3,7 @@
 #include "Score.h"
 #include "Menu.h"
 #include "PowerUp.h"
+#include "PowerUp.cpp"
 #include <vector>
 
 Game::Game() : enemiesGrid(5, 10)
@@ -133,24 +134,32 @@ void Game::update(sf::RenderWindow& window, float deltaTime, Menu& menu, FilesMa
 					{
 						score.addPoints(enemy->pointsValue);
 						projectile.remove = true;
-						enemy->_isHitted = true;
-						if (!enemy->_attacking && enemy->getType() == EnemyType::Commander) {
-							std::cout << "HIT COMMANDER FORMACION" << std::endl;
-							PowerUp powerUp(enemy->getPosition());
-							this->powerUps.push_back(powerUp);
-						}
 						//no pongo enemy->remove = true, porq lo hago en el updateDrawing de cada enemy cuando _isHitted = true
+						enemy->_isHitted = true;
+
+						if (!enemy->_attacking && enemy->getType() == EnemyType::Commander) {
+							PowerUp powerUp(enemy->getPosition());
+							powerUps.push_back(std::move(powerUp));
+						}
 					}
 				}
 			}
 
+		}
+
+		for (PowerUp& powerUpItem : powerUps) {
+			if (projectile.isCollision(powerUpItem)) {
+				powerUpItem._isHitted = true;
+				player.setPowerUp(true);
+			}
 		}
 	}
 
 	for (PowerUp& powerUpItem : powerUps) {
 		powerUpItem.updatePowerup(deltaTime);
 		if (powerUpItem.isCollision(player)) {
-			powerUpItem.remove = true;
+			powerUpItem._isHitted = true;
+			player.setPowerUp(true);
 		}
 	}
 
@@ -233,6 +242,10 @@ void Game::update(sf::RenderWindow& window, float deltaTime, Menu& menu, FilesMa
 
 	for (const auto& projectile : playerProjectiles) {
 		window.draw(projectile, sf::RenderStates::Default);
+	}
+
+	for (const auto& powerUp : powerUps) {
+		window.draw(powerUp);
 	}
 
 	enemiesGrid.display(window, sf::RenderStates::Default);

@@ -22,11 +22,25 @@ Player::Player()
     _shootCoolDown = PLAYER_SHOOT_COOLDOWN;
     _frame = 0;
     _isHitted = false;
+
+    _powerUp = false;
+    _powerUpDuration = 60 * 5; //dura 5 segundos
+    _powerUpTimer = 0;
 }
 
 void Player::update(float deltaTime, std::vector<Projectile>& projectiles)
 {   
     _speed = { 0, 0 };
+
+    if (_powerUp && _powerUpTimer <= _powerUpDuration) {
+        _shootCoolDown = 0.25;
+        _powerUpTimer += 1;
+    }
+    else {
+        _shootCoolDown = PLAYER_SHOOT_COOLDOWN;
+        _powerUp = false;
+        _powerUpTimer = 0;
+    }
 
     //si fue impactado por misil enemigo no se puede mover mientras animacion
     if (!_isHitted) { 
@@ -45,7 +59,6 @@ void Player::update(float deltaTime, std::vector<Projectile>& projectiles)
             && _timeSinceLastShot >= _shootCoolDown) {
             shoot(projectiles);
         }
-
        
         _sprite.move(_speed);
         _fixedProjectileSprite.setPosition(_sprite.getPosition().x, _sprite.getGlobalBounds().top - _fixedProjectileSprite.getGlobalBounds().height);
@@ -138,4 +151,8 @@ int Player::getLives() const
 sf::Vector2f Player::getPosition()
 {
     return _sprite.getPosition();
+}
+
+void Player::setPowerUp(bool powerUp) {
+    _powerUp = powerUp;
 }

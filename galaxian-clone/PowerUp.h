@@ -3,10 +3,8 @@
 class PowerUp : public GameObject
 {
 private:
-	float _duration;
 	sf::Vector2f _speed;
 	float _frameDeath;
-	//sf::Vector2f _itemPosition;
 public:
 	PowerUp(sf::Vector2f originPosition);
 	bool remove = false;
@@ -14,5 +12,6 @@ public:
 	void updateDrawing() override;
 	void updatePowerup(float deltaTime);
 	sf::FloatRect getBounds() const override;
+	bool _isHitted;
 };
 
