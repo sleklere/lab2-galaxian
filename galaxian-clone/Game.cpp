@@ -2,6 +2,7 @@
 #include "FilesManager.h"
 #include "Score.h"
 #include "Menu.h"
+#include "PowerUp.h"
 #include <vector>
 
 Game::Game() : enemiesGrid(5, 10)
@@ -133,11 +134,23 @@ void Game::update(sf::RenderWindow& window, float deltaTime, Menu& menu, FilesMa
 						score.addPoints(enemy->pointsValue);
 						projectile.remove = true;
 						enemy->_isHitted = true;
+						if (!enemy->_attacking && enemy->getType() == EnemyType::Commander) {
+							std::cout << "HIT COMMANDER FORMACION" << std::endl;
+							PowerUp powerUp(enemy->getPosition());
+							this->powerUps.push_back(powerUp);
+						}
 						//no pongo enemy->remove = true, porq lo hago en el updateDrawing de cada enemy cuando _isHitted = true
 					}
 				}
 			}
 
+		}
+	}
+
+	for (PowerUp& powerUpItem : powerUps) {
+		powerUpItem.updatePowerup(deltaTime);
+		if (powerUpItem.isCollision(player)) {
+			powerUpItem.remove = true;
 		}
 	}
 
@@ -151,6 +164,11 @@ void Game::update(sf::RenderWindow& window, float deltaTime, Menu& menu, FilesMa
 		std::remove_if(enemyProjectiles.begin(), enemyProjectiles.end(),
 			[](const Projectile& p) { return p.remove; }),
 		enemyProjectiles.end());
+
+	powerUps.erase(
+		std::remove_if(powerUps.begin(), powerUps.end(),
+			[](const PowerUp& i) { return i.remove; }),
+		powerUps.end());
 
 	for (auto& row : enemiesGrid.getCells()) {
 		row.erase(

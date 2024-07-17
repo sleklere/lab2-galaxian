@@ -10,6 +10,7 @@ GalaxianCyan::GalaxianCyan() {
 	_sprite.setOrigin(_sprite.getGlobalBounds().width / 2, _sprite.getGlobalBounds().height);
 	_sprite.setScale(3, 3);
 	_frame = 0;
+	type = EnemyType::Cyan;
 
 	pointsValue = 30;
 	_isHitted = false;

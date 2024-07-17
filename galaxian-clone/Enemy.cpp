@@ -78,3 +78,14 @@ void Enemy::shoot(std::vector<Projectile>& projectiles)
 
 	_timeSinceLastShot = 0.f;
 }
+
+EnemyType Enemy::getType()
+{
+	return type;
+}
+
+
+sf::Vector2f Enemy::getPosition()
+{
+	return _sprite.getPosition();
+}

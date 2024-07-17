@@ -3,6 +3,13 @@
 #include "Projectile.h"
 #include "Collisionable.h"
 
+enum class EnemyType {
+	Cyan,
+	Pink,
+	Red,
+	Commander
+};
+
 class Enemy : public GameObject
 {
 protected:
@@ -21,10 +28,13 @@ public:
 	bool _attacking;
 	sf::Vector2f playerPos;
 	bool _evenColumn;
+	EnemyType type;
 	
 	Enemy();
 	void update(float deltaTime, std::vector<Projectile>& projectiles, sf::Vector2f playerPosition) override;
 	sf::FloatRect getBounds() const override;
 	void shoot(std::vector<Projectile>& projectiles);
+	EnemyType getType();
+	sf::Vector2f getPosition();
 };
 

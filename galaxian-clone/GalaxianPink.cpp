@@ -9,6 +9,7 @@ GalaxianPink::GalaxianPink() {
 	_sprite.setOrigin(_sprite.getGlobalBounds().width / 2, _sprite.getGlobalBounds().height);
 	_sprite.setScale(3, 3);
 	_frame = 0;
+	type = EnemyType::Pink;
 	
 	pointsValue = 40;
 	_isHitted = false;

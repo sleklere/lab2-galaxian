@@ -16,6 +16,7 @@
 #include "GameOver.h"
 #include "Screen.h"
 #include "Round.h"
+#include "PowerUp.h"
 
 class Game: public Screen
 {
@@ -24,6 +25,7 @@ private:
     Grid enemiesGrid;
     std::vector<Projectile> playerProjectiles;
     std::vector<Projectile> enemyProjectiles;
+    std::vector<PowerUp> powerUps;
     sf::Clock clock;
     sf::Font font;
     sf::Text pointsText;

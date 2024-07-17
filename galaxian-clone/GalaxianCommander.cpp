@@ -8,6 +8,7 @@ GalaxianCommander::GalaxianCommander() {
 	_sprite.setTextureRect(textureRect);
 	_sprite.setOrigin(_sprite.getGlobalBounds().width / 2, _sprite.getGlobalBounds().height);
 	_sprite.setScale(3, 3);
+	type = EnemyType::Commander;
 
 	pointsValue = 60;
 	_isHitted = false;
