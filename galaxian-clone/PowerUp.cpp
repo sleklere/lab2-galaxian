@@ -7,7 +7,7 @@ PowerUp::PowerUp(sf::Vector2f originPosition)
 	_sprite.setTexture(*_texture); 
 
 	_speed = { 0, 2 };
-	_sprite.setPosition(originPosition);
+	_sprite.setPosition(originPosition.x, originPosition.y - 45);
 	_frameDeath = 0;
 	_isHitted = false;
 }

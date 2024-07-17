@@ -130,7 +130,7 @@ void Game::update(sf::RenderWindow& window, float deltaTime, Menu& menu, FilesMa
 			for (auto& enemy : row) {
 
 				if (enemy != nullptr) {
-					if (projectile.isCollision(*enemy))
+					if (projectile.isCollision(*enemy) && !enemy->_isHitted)
 					{
 						score.addPoints(enemy->pointsValue);
 						projectile.remove = true;
@@ -244,11 +244,11 @@ void Game::update(sf::RenderWindow& window, float deltaTime, Menu& menu, FilesMa
 		window.draw(projectile, sf::RenderStates::Default);
 	}
 
+	enemiesGrid.display(window, sf::RenderStates::Default);
+
 	for (const auto& powerUp : powerUps) {
 		window.draw(powerUp);
 	}
-
-	enemiesGrid.display(window, sf::RenderStates::Default);
 
 	player.draw(window, sf::RenderStates::Default);
 

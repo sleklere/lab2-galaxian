@@ -33,7 +33,7 @@ void Player::update(float deltaTime, std::vector<Projectile>& projectiles)
     _speed = { 0, 0 };
 
     if (_powerUp && _powerUpTimer <= _powerUpDuration) {
-        _shootCoolDown = 0.25;
+        _shootCoolDown = 0.2;
         _powerUpTimer += 1;
     }
     else {
